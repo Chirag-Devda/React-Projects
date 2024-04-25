@@ -1,0 +1,24 @@
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.logo img {
+  height: 75px;
+  width: 100px;
+}
+
+ul {
+  display: flex;
+  gap: 24px;
+}
+
+a {
+  all: unset;
+  color: black;
+}
+ul a li {
+  list-style: none;
+}
