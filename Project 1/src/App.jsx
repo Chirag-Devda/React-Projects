@@ -8,9 +8,11 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="max-w-5xl relative top-8 min-h-[80vh] max-h-full  m-auto flex">
-        <div className="left  flex flex-col justify-around">
-          <h1 className="text-7xl font-black">YOUR FEET DESERVE THE BEST</h1>
+      <div className="main-container xl:max-w-7xl m-auto flex items-center justify-center ">
+        <div className="left flex flex-col md:gap-9">
+          <h1 className="text-[108px] font-extrabold leading-[102px]">
+            YOUR FEET DESERVE THE BEST
+          </h1>
           <p className="w-[50%] text-sm font-normal">
             YOUR FEET DESERVE THE BEST AND WE’RE HERE TO HELP YOU WITH OUR
             SHOES.YOUR FEET DESERVE THE BEST AND WE’RE HERE TO HELP YOU WITH OUR
@@ -34,13 +36,7 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="right flex flex-col items-center justify-center relative right-20">
-          <img
-            className="w-[780px] h-[450px]"
-            src="images/shoe_image.png"
-            alt=""
-          />
-        </div>
+        <img className="brand-shoe" src="images/shoe_image.png" alt="" />
       </div>
     </>
   );
