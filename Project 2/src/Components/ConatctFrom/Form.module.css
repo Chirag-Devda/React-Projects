@@ -1,8 +1,69 @@
 .container {
   max-width: 1000px;
   margin: 0 auto;
+  display: flex;
+  align-items: start;
+  gap: 81px;
+}
+.Details_container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-self: flex-start;
+  margin-top: 40px;
+}
+.call_Chat_Btns {
+  display: flex;
+  gap: 32px;
 }
 .contactOptionsBtn {
   display: flex;
-  gap: 32px;
+  flex-direction: column;
+  gap: 17px;
+}
+.img_Container {
+  display: flex;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  align-items: end;
+}
+.Form_Inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 97%;
+}
+.input_Container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+.input_Container label {
+  font-size: 14px;
+  position: absolute;
+  top: -12px;
+  left: 10px;
+  background: white;
+  padding: 0px 10px;
+}
+.input_Container input {
+  height: 40px;
+  padding: 0px 8px;
+}
+textarea {
+  padding-top: 13px;
+  resize: none;
+  font-size: 16px;
+  justify-content: flex-end;
+}
+.Submit_Container {
+  display: flex;
+  justify-content: end;
+}
+.Img1 img {
+  height: 500px;
 }

@@ -6,8 +6,10 @@ function App() {
   return (
     <>
       <Navbar />
-      <Header />
-      <Form />
+      <main className="main_container">
+        <Header />
+        <Form />
+      </main>
     </>
   );
 }

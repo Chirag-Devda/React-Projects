@@ -2,7 +2,7 @@ import React from "react";
 import style from "../ContactFormHeader/Header.module.css";
 const Header = () => {
   return (
-    <div className={`container`}>
+    <div className={`${style.Header} `}>
       <h1>CONTACT US</h1>
       <p>
         LET’S CONNECT: WE’RE HERE TO HELP, AND WE’D LOVE TO HEAR FROM YOU!
