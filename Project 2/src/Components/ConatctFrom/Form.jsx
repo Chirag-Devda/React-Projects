@@ -12,7 +12,19 @@ const Form = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit = async (data) => {
+    let r = await fetch("http://localhost:3000/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(data),
+    });
+    console.log(data);
+  };
+
   return (
     <section className={`${style.container}`}>
       <div className={style.Details_container}>
