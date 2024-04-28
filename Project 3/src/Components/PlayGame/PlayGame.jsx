@@ -39,9 +39,6 @@ const Container = styled.div`
 const ScoreAndChoiceBoard = styled.div`
   display: flex;
   align-items: center;
-  position: relative;
-  top: 64px;
-  height: 151px;
   gap: 593px;
 `;
 
@@ -71,29 +68,26 @@ const Scorecontent = styled.div`
 const ChoiceBox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 30px;
   align-items: end;
   span {
     font-size: 24px;
     font-weight: bold;
   }
+  .Error {
+    color: red;
+  }
 `;
 
 const GameContainer = styled.div`
-  width: 250px;
-  height: 449px;
-  position: absolute;
-  top: 263px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 36px;
+  gap: 24px;
 `;
 const DiceContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
 
   & > div + div {
     font-size: 24px;
@@ -101,26 +95,13 @@ const DiceContainer = styled.div`
   }
 `;
 const Dice = styled.div`
-  width: 190px;
-  height: 190px;
-  background-color: #000000;
-  color: white;
-  border: 2px solid black;
-  border-radius: 10%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: center;
   cursor: pointer;
-  font-size: 108px;
-  font-family: emoji;
-  user-select: none; /* Disable text selection */
 `;
 const OptionsButtons = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 10px;
 
   & > button {
     width: 220px;
@@ -142,16 +123,41 @@ const OptionsButtons = styled.div`
   }
 `;
 
+const Rules = styled.div`
+  border-radius: 5px;
+  background-color: #fbf1f1;
+  width: 794px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 5px;
+
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 4px;
+  }
+`;
 const PlayGame = () => {
-  const [ComputerDice, setComputerDice] = useState(0);
+  const [ComputerDice, setComputerDice] = useState(1);
   const [UserDice, setUserDice] = useState();
   const [TotalScore, setTotalScore] = useState(0);
   const [ShowRules, setShowRules] = useState(false);
+  const [Error, setError] = useState("");
   // Array of Dice numbers
   let Dices = [1, 2, 3, 4, 5, 6];
 
   // Function for making Computer Choice
   const ComputerChoice = () => {
+    if (!UserDice) {
+      setError("You have not selected any number");
+      return;
+    } // this will stop dice to roll when userDice was not selected
     let random = Math.floor(Math.random() * 6 + 1);
     setComputerDice(random);
   };
@@ -167,8 +173,8 @@ const PlayGame = () => {
         setTotalScore(score);
       }
     }
+    setUserDice(undefined);
   };
-
   useEffect(() => {
     TotalScorefun();
   }, [ComputerDice]);
@@ -181,6 +187,7 @@ const PlayGame = () => {
           <Scorecontent>Total Score</Scorecontent>
         </ScoresBox>
         <ChoiceBox>
+          <span className="Error">{Error}</span>
           <Choices>
             {Dices.map((value, i) => (
               <Box
@@ -188,6 +195,7 @@ const PlayGame = () => {
                 isselected={(value === UserDice).toString()}
                 onClick={() => {
                   setUserDice(value);
+                  setError(""); // when userDice was selected
                 }}
               >
                 {value}
@@ -199,7 +207,12 @@ const PlayGame = () => {
       </ScoreAndChoiceBoard>
       <GameContainer>
         <DiceContainer onClick={ComputerChoice}>
-          <Dice>{ComputerDice}</Dice>
+          <Dice>
+            <img
+              src={`images/Dice/dice_${ComputerDice}.png`}
+              alt={`Dice ${ComputerDice}`}
+            />
+          </Dice>
           <div>Click on Dice To Roll</div>
         </DiceContainer>
         <OptionsButtons>
@@ -240,24 +253,3 @@ const PlayGame = () => {
 };
 
 export default PlayGame;
-const Rules = styled.div`
-  background-color: #fbf1f1;
-  width: 794px;
-  height: 208px;
-  margin-bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding: 20px;
-
-  h1 {
-    font-size: 24px;
-    font-weight: bold;
-  }
-
-  p {
-    font-size: 16px;
-    font-weight: normal;
-    margin-bottom: 4px;
-  }
-`;
