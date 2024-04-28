@@ -1,6 +1,32 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useState } from "react";
+import { useEffect } from "react";
+
+const Choices = styled.div`
+  display: flex;
+  gap: 24px;
+`;
+
+const Box = styled.div`
+  border: 1px solid;
+  height: 72px;
+  width: 72px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: emoji;
+  user-select: none;
+  cursor: pointer;
+  ${(props) =>
+    props.isselected === "true" &&
+    css`
+      background-color: black;
+      color: white;
+    `};
+`;
 
 const Container = styled.div`
   max-width: 1280px;
@@ -27,6 +53,8 @@ const ScoresBox = styled.div`
   height: 151px;
 `;
 const Score = styled.div`
+  display: flex;
+  justify-content: center;
   font-size: 100px;
   font-weight: medium;
   width: 62px;
@@ -48,22 +76,6 @@ const ChoiceBox = styled.div`
   span {
     font-size: 24px;
     font-weight: bold;
-  }
-`;
-const Choices = styled.div`
-  display: flex;
-  gap: 24px;
-
-  div {
-    border: 1px solid;
-    height: 72px;
-    width: 72px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    font-weight: bold;
-    font-family: emoji;
   }
 `;
 
@@ -116,6 +128,7 @@ const OptionsButtons = styled.div`
     padding: 10px 18px;
     border-radius: 5px;
     border: none;
+    cursor: pointer;
   }
 
   & > button:first-child {
@@ -130,39 +143,96 @@ const OptionsButtons = styled.div`
 `;
 
 const PlayGame = () => {
-  const [Computer, setComputer] = useState(1);
+  const [ComputerDice, setComputerDice] = useState(0);
+  const [UserDice, setUserDice] = useState();
+  const [TotalScore, setTotalScore] = useState(0);
+  const [ShowRules, setShowRules] = useState(false);
+  // Array of Dice numbers
+  let Dices = [1, 2, 3, 4, 5, 6];
+
+  // Function for making Computer Choice
   const ComputerChoice = () => {
     let random = Math.floor(Math.random() * 6 + 1);
-    setComputer(random);
-    console.log(Computer);
+    setComputerDice(random);
   };
+
+  // Function for Total Scores
+  const TotalScorefun = () => {
+    if (UserDice === ComputerDice) {
+      let score = TotalScore + ComputerDice;
+      setTotalScore(score);
+    } else {
+      if (UserDice != undefined) {
+        let score = TotalScore - 2;
+        setTotalScore(score);
+      }
+    }
+  };
+
+  useEffect(() => {
+    TotalScorefun();
+  }, [ComputerDice]);
+
   return (
     <Container>
       <ScoreAndChoiceBoard>
         <ScoresBox>
-          <Score>0</Score>
+          <Score>{TotalScore}</Score>
           <Scorecontent>Total Score</Scorecontent>
         </ScoresBox>
         <ChoiceBox>
           <Choices>
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-            <div>4</div>
-            <div>5</div>
-            <div>6</div>
+            {Dices.map((value, i) => (
+              <Box
+                key={i}
+                isselected={(value === UserDice).toString()}
+                onClick={() => {
+                  setUserDice(value);
+                }}
+              >
+                {value}
+              </Box>
+            ))}
           </Choices>
           <span>Select Number</span>
         </ChoiceBox>
       </ScoreAndChoiceBoard>
       <GameContainer>
-        <DiceContainer>
-          <Dice onClick={ComputerChoice}>{Computer}</Dice>
+        <DiceContainer onClick={ComputerChoice}>
+          <Dice>{ComputerDice}</Dice>
           <div>Click on Dice To Roll</div>
         </DiceContainer>
         <OptionsButtons>
-          <button>Reset Score</button>
-          <button>Show Rules</button>
+          <button
+            onClick={() => {
+              setTotalScore(0);
+            }}
+          >
+            Reset Score
+          </button>
+          <button
+            onClick={() => {
+              setShowRules((prev) => !prev);
+            }}
+          >
+            {ShowRules ? "Close Rules" : "Show Rules"}
+          </button>
+          {ShowRules ? (
+            <Rules>
+              <h1>How to play dice game </h1>
+              <div>
+                <p>Select any number</p>
+                <p>Click on dice image</p>
+                <p>
+                  after click on dice if selected number is equal to dice number
+                  you will get same point as dice{" "}
+                </p>
+                <p>if you get wrong guess then 2 point will be dedcuted </p>
+              </div>
+            </Rules>
+          ) : (
+            <></>
+          )}
         </OptionsButtons>
       </GameContainer>
     </Container>
@@ -170,3 +240,24 @@ const PlayGame = () => {
 };
 
 export default PlayGame;
+const Rules = styled.div`
+  background-color: #fbf1f1;
+  width: 794px;
+  height: 208px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 20px;
+
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 4px;
+  }
+`;
