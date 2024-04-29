@@ -22,3 +22,11 @@ a {
 ul a li {
   list-style: none;
 }
+
+/* Responsive css for mobile */
+@media only screen and (max-width: 1120px) {
+  nav {
+    width: 100vw;
+    justify-content: space-around;
+  }
+}

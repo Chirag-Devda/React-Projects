@@ -51,10 +51,12 @@ form {
   padding: 0px 10px;
 }
 .input_Container input {
+  border: 1px solid;
   height: 40px;
   padding: 0px 8px;
 }
 textarea {
+  border: 1px solid;
   padding-top: 13px;
   resize: none;
   font-size: 16px;
@@ -66,4 +68,42 @@ textarea {
 }
 .Img1 img {
   height: 500px;
+}
+
+/* Responsive css for mobile */
+@media only screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .Details_container {
+    width: 84vw;
+    gap: 24px;
+    margin-top: 50px;
+  }
+  .call_Chat_Btns {
+    flex-direction: column;
+  }
+  .Form_Inputs {
+    width: 100%;
+  }
+
+  .img_Container {
+    display: none;
+  }
+}
+@media only screen and (max-width: 1120px) and (min-width: 768px) {
+  .Details_container {
+    width: 50vw;
+  }
+  .call_Chat_Btns {
+    flex-direction: column;
+  }
+
+  .img_Container {
+    align-self: center;
+  }
+
+  .Img1 img {
+    height: 300px;
+  }
 }
