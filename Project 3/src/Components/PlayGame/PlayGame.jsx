@@ -26,6 +26,12 @@ const Box = styled.div`
       background-color: black;
       color: white;
     `};
+
+  @media screen and (max-width: 768px) {
+    width: 11vw;
+    height: 6vh;
+    font-size: 1.3rem;
+  }
 `;
 
 const Container = styled.div`
@@ -40,6 +46,17 @@ const ScoreAndChoiceBoard = styled.div`
   display: flex;
   align-items: center;
   gap: 593px;
+  @media screen and (max-width: 1280px) and (min-width: 767px) {
+    gap: 0px;
+    justify-content: space-around;
+    width: 90vw;
+    margin: 0 auto;
+  }
+  @media screen and (max-width: 768px) {
+    width: 100vw;
+    flex-direction: column;
+    gap: 0px;
+  }
 `;
 
 const ScoresBox = styled.div`
@@ -48,6 +65,14 @@ const ScoresBox = styled.div`
   align-items: center;
   width: 135px;
   height: 151px;
+
+  @media screen and (max-width: 768px) {
+    align-self: flex-start;
+    align-items: center;
+    flex-direction: row;
+    height: 100%;
+    gap: 10px;
+  }
 `;
 const Score = styled.div`
   display: flex;
@@ -56,14 +81,25 @@ const Score = styled.div`
   font-weight: medium;
   width: 62px;
   height: 112px;
+  @media screen and (max-width: 768px) {
+    align-items: center;
+    font-size: 3rem;
+    height: 100%;
+  }
 `;
 const Scorecontent = styled.div`
   font-size: 24px;
   font-weight: normal;
   width: 135px;
   height: 36px;
-  position: absolute;
-  top: 115px;
+  white-space: nowrap;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 1rem;
+    align-items: center;
+  }
 `;
 const ChoiceBox = styled.div`
   display: flex;
@@ -76,6 +112,15 @@ const ChoiceBox = styled.div`
   .Error {
     color: red;
   }
+
+  @media screen and (max-width: 768px) {
+    span {
+      font-size: 1.3rem;
+    }
+    .Error {
+      font-size: 1rem;
+    }
+  }
 `;
 
 const GameContainer = styled.div`
@@ -83,6 +128,8 @@ const GameContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 24px;
+  height: 100vh;
+  justify-content: center;
 `;
 const DiceContainer = styled.div`
   display: flex;
@@ -93,9 +140,20 @@ const DiceContainer = styled.div`
     font-size: 24px;
     font-weight: normal;
   }
+
+  @media screen and (max-width: 768px) {
+    & > div + div {
+      font-size: 1rem;
+    }
+  }
 `;
 const Dice = styled.div`
   cursor: pointer;
+  @media screen and (max-width: 768px) {
+    img {
+      width: 30vw;
+    }
+  }
 `;
 const OptionsButtons = styled.div`
   display: flex;
@@ -121,6 +179,12 @@ const OptionsButtons = styled.div`
     background-color: #000000;
     color: white;
   }
+
+  @media screen and (max-width: 768px) {
+    button {
+      width: 40vw;
+    }
+  }
 `;
 
 const Rules = styled.div`
@@ -142,7 +206,18 @@ const Rules = styled.div`
     font-weight: normal;
     margin-bottom: 4px;
   }
+  @media screen and (max-width: 768px) {
+    width: 93vw;
+    margin-top: 50px;
+    h1 {
+      font-size: 1.3rem;
+    }
+    p {
+      font-size: 0.7rem;
+    }
+  }
 `;
+
 const PlayGame = () => {
   const [ComputerDice, setComputerDice] = useState(1);
   const [UserDice, setUserDice] = useState();

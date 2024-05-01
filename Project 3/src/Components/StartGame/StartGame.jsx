@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
 
 // Styles
 const Container = styled.div`
@@ -10,6 +9,10 @@ const Container = styled.div`
   align-items: center;
   max-width: 1180px;
   margin: 0 auto;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const Playybtn = styled.div`
@@ -21,6 +24,9 @@ const Heading = styled.h1`
   font-size: 96px;
   font-weight: bold;
   white-space: nowrap;
+  @media screen and (max-width: 1180px) {
+    font-size: 4rem;
+  }
 `;
 const Buttton = styled.button`
   background-color: black;
@@ -34,12 +40,24 @@ const Buttton = styled.button`
   cursor: pointer;
 `;
 
+const ImageContainer = styled.div`
+  @media screen and (max-width: 1180px) and (min-width: 767px) {
+    img {
+      width: 50vw;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    img {
+      width: 80vw;
+    }
+  }
+`;
 const StartGame = ({ toggle }) => {
   return (
     <Container>
-      <div>
-        <img src="/images/dices 1.png" alt="" />
-      </div>
+      <ImageContainer>
+        <img src="/images/dices 1.png" />
+      </ImageContainer>
       <Playybtn>
         <Heading>Dice Game</Heading>
         <Buttton onClick={toggle}>Play Now</Buttton>
