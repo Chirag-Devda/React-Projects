@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
     background-color:#323343;
     min-height: 100vh;
     color: white;
-    font-family: "Inter", sans-serif;;
+    font-family: "Inter", sans-serif;
    }
 `;
 
