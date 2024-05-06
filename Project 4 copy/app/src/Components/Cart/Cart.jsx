@@ -2,26 +2,75 @@ import React from "react";
 import { Container, Base_Url, Button } from "../../App";
 import { NotAvailable } from "../SearchResults/SearchResult";
 import styled from "styled-components";
-import { useContext } from "react";
-import { CartItems } from "../../Context/Context";
+import { useContext, useEffect } from "react";
+import { CartItems } from "../../Context/Cart";
+import { dataItems } from "../../Context/data";
 import { FilterCards, FilterCard } from "../SearchResults/SearchResult";
+import { MdDelete } from "react-icons/md";
 
 const Cart = () => {
   const value = useContext(CartItems);
+  const data = useContext(dataItems);
+
   const Delete = (name) => {
-    let newobj = value.mergedItems.filter((item) => {
+    let newobj = value.mergedCart.filter((item) => {
       return item.name != name;
     });
-    value.setMergedItems(newobj);
+
+    value.setMergedCart(newobj);
   };
-  console.log(value);
+
+  const handleQuantity = (e, quantity, name) => {
+    if (e.target.innerHTML === "+") {
+      let updatedCart = value.mergedCart.map((item) => {
+        if (item.name === name) {
+          let filterDefaultObj = data.find(
+            (dataItem) => dataItem.name === name
+          );
+          let filterDefaultPrice = filterDefaultObj
+            ? filterDefaultObj.price
+            : 0;
+
+          return {
+            ...item,
+            quantity: item.quantity + 1,
+            price: item.price + filterDefaultPrice,
+          };
+        }
+        return { ...item }; // Create a new object for other items
+      });
+
+      value.setMergedCart(updatedCart);
+    } else {
+      let updatedCart = value.mergedCart.map((item) => {
+        if (item.name === name && item.quantity > 0) {
+          let filterDefaultObj = data.find(
+            (dataItem) => dataItem.name === name
+          );
+          let filterDefaultPrice = filterDefaultObj
+            ? filterDefaultObj.price
+            : 0;
+
+          return {
+            ...item,
+            quantity: item.quantity - 1,
+            price: item.price - filterDefaultPrice,
+          };
+        }
+        return { ...item }; // Create a new object for other items
+      });
+
+      value.setMergedCart(updatedCart);
+    }
+  };
+
   return (
     <MyCartContainer>
       <Container>
         <FilterCards>
-          {value.mergedItems?.map(
+          {value.mergedCart?.map(
             ({ name, image, text, price, quantity }, i) => (
-              <FilterCard key={i}>
+              <FilterCard key={i} iscart={"true"}>
                 <div className="Foodimg">
                   <img src={Base_Url + image} alt="Food image" />
                 </div>
@@ -30,16 +79,35 @@ const Cart = () => {
                     <h3>{name}</h3>
                     <p>{text}</p>
                   </div>
+                  <div className="Delete">
+                    <Button
+                      onClick={() => {
+                        Delete(name);
+                      }}
+                    >
+                      <MdDelete />
+                    </Button>
+                  </div>
                   <div className="btn_div">
-                    <div className="Delete">
+                    <div className="quantity">
                       <Button
-                        onClick={() => {
-                          {
+                        onClick={async (e) => {
+                          handleQuantity(e, quantity, name);
+                          if (quantity < 2) {
                             Delete(name);
                           }
                         }}
                       >
-                        Cancel
+                        -
+                      </Button>
+
+                      <span>{quantity}</span>
+                      <Button
+                        onClick={(e) => {
+                          handleQuantity(e, quantity, name);
+                        }}
+                      >
+                        +
                       </Button>
                     </div>
                     <div className="price">
@@ -50,7 +118,7 @@ const Cart = () => {
               </FilterCard>
             )
           )}
-          {value.mergedItems?.length === 0 && (
+          {value.mergedCart?.length === 0 && (
             <NotAvailable>
               <div className="message">
                 <div className="message_img">

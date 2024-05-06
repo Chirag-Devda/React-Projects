@@ -1,20 +1,19 @@
-import styled from "styled-components";
+import { styled, css } from "styled-components";
 import React from "react";
 import { Container, Base_Url, Button } from "../../App";
 import { useState, useEffect } from "react";
-import { CartItems } from "../../Context/Context";
+import { CartItems } from "../../Context/Cart";
 import Cart from "../Cart/Cart";
 
-const SearchResult = ({ data, SelectedOptions }) => {
+const SearchResult = ({ data, MyCartBtn }) => {
   const [cart, setcart] = useState([]);
-  const [mergedItems, setMergedItems] = useState([]);
+  const [mergedCart, setMergedCart] = useState([]);
   const handleCart = (index) => {
     let item = data[index];
     setcart([...cart, item]);
   };
-
   useEffect(() => {
-    let mergedItemsObj = cart.reduce((acc, item) => {
+    let mergedCartObj = cart.reduce((acc, item) => {
       if (!acc[item.name]) {
         acc[item.name] = { ...item, quantity: 1 };
       } else {
@@ -25,16 +24,14 @@ const SearchResult = ({ data, SelectedOptions }) => {
       return acc;
     }, {});
 
-    let mergedItemsArray = Object.values(mergedItemsObj);
-    setMergedItems(mergedItemsArray);
+    let mergedCartArray = Object.values(mergedCartObj);
+    setMergedCart(mergedCartArray);
   }, [cart]);
 
-  console.log(mergedItems);
-
   return (
-    <CartItems.Provider value={{ mergedItems, setMergedItems }}>
+    <CartItems.Provider value={{ mergedCart, setMergedCart }}>
       <FoodCardsContainer>
-        {SelectedOptions ? (
+        {MyCartBtn ? (
           <Cart />
         ) : (
           <Container>
@@ -70,7 +67,7 @@ const SearchResult = ({ data, SelectedOptions }) => {
                 <NotAvailable>
                   <div className="message">
                     <div className="message_img">
-                      <img src="public/Not available.png" alt="Not Available" />
+                      <img src="Not available.png" alt="Not Available" />
                     </div>
                     <h1>Not Available !</h1>
                   </div>
@@ -110,12 +107,18 @@ export const FilterCard = styled.div`
   background-blend-mode: overlay, normal;
   backdrop-filter: blur(13.1842px);
   background: url(.png),
-    radial-gradient(
-      90.16% 143.01% at 15.32% 21.04%,
-      rgba(165, 239, 255, 0.2) 0%,
-      rgba(110, 191, 244, 0.0447917) 77.08%,
-      rgba(70, 144, 213, 0) 100%
-    );
+    ${({ iscart }) =>
+        iscart === "true" &&
+        css`
+          height: 190px;
+          width: 380px;
+        `}
+      radial-gradient(
+        90.16% 143.01% at 15.32% 21.04%,
+        rgba(165, 239, 255, 0.2) 0%,
+        rgba(110, 191, 244, 0.0447917) 77.08%,
+        rgba(70, 144, 213, 0) 100%
+      );
   border-image-source: radial-gradient(
       80.69% 208.78% at 108.28% 112.58%,
       #eabfff 0%,
@@ -136,6 +139,24 @@ export const FilterCard = styled.div`
     .btn_div {
       display: flex;
       gap: 20px;
+
+      .quantity {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+      }
+    }
+
+    .Delete {
+      margin-top: 6px;
+
+      display: flex;
+      padding: 4px 10px;
+      align-items: center;
+      justify-content: center;
+      button {
+        font-size: 17px;
+      }
     }
 
     .Add {

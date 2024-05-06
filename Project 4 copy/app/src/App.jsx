@@ -3,8 +3,9 @@ import styled, { css } from "styled-components";
 import { useState } from "react";
 import SearchResult from "./Components/SearchResults/SearchResult";
 export let Base_Url = "http://localhost:9000";
+import { dataItems } from "./Context/data";
 
-const filterbtnArray = [
+const ButtonsArray = [
   {
     name: "All",
     type: "all",
@@ -27,9 +28,9 @@ const App = () => {
   const [data, setdata] = useState(null);
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState(null);
-  const [filter, setfilter] = useState(null);
+  const [filterdata, setfilterdata] = useState(null);
   const [Searchbtn, setSearchbtn] = useState(null);
-  const [SelectedOptions, setSelectedOptions] = useState(false);
+  const [MyCartBtn, setMyCartBtn] = useState(false);
 
   useEffect(() => {
     const Fetchedata = async () => {
@@ -40,7 +41,7 @@ const App = () => {
         let json = await response.json();
 
         setdata(json);
-        setfilter(json);
+        setfilterdata(json);
         setloading(false);
       } catch (error) {
         seterror("There is problem to fetch data", error);
@@ -53,20 +54,20 @@ const App = () => {
     const SearchValue = e.target.value;
 
     if (SearchValue == "") {
-      setfilter(null);
+      setfilterdata(null);
     }
 
     const filter = data?.filter((food) => {
       return food.name.toLowerCase().includes(SearchValue.toLowerCase());
     });
 
-    setfilter(filter);
+    setfilterdata(filter);
   };
 
-  const filterbtn = (type) => {
+  const handlefilterbtns = (type) => {
     if (type == "all") {
       setSearchbtn(type);
-      setfilter(data);
+      setfilterdata(data);
       return;
     }
 
@@ -74,49 +75,50 @@ const App = () => {
       return food.type.toLowerCase().includes(type.toLowerCase());
     });
     setSearchbtn(type);
-    setfilter(filter);
+    setfilterdata(filter);
   };
   if (error) return <div>{error}</div>;
   if (loading) return <div>Loading........</div>;
-
   return (
     <>
-      <Container>
-        <TopSection>
-          <div className="logo">
-            <img src="logo.svg" alt="Logo" />
-          </div>
-          <div className="search">
-            <input
-              onChange={handlesearch}
-              type="search"
-              placeholder="Search foods"
-            />
-          </div>
-        </TopSection>
-        <Filtersection>
-          {filterbtnArray.map((value) => (
+      <dataItems.Provider value={data}>
+        <Container>
+          <TopSection>
+            <div className="logo">
+              <img src="logo.svg" alt="Logo" />
+            </div>
+            <div className="search">
+              <input
+                onChange={handlesearch}
+                type="search"
+                placeholder="Search foods"
+              />
+            </div>
+          </TopSection>
+          <Filtersection>
+            {ButtonsArray.map((value) => (
+              <Button
+                key={value.type}
+                isselected={(Searchbtn === value.type).toString()}
+                onClick={() => {
+                  handlefilterbtns(value.type);
+                  setMyCartBtn(false);
+                }}
+              >
+                {value.name}
+              </Button>
+            ))}
             <Button
-              key={value.type}
-              isselected={(Searchbtn === value.type).toString()}
               onClick={() => {
-                filterbtn(value.type);
-                setSelectedOptions(false);
+                setMyCartBtn(true);
               }}
             >
-              {value.name}
+              My Cart
             </Button>
-          ))}
-          <Button
-            onClick={() => {
-              setSelectedOptions(true);
-            }}
-          >
-            My Cart
-          </Button>
-        </Filtersection>
-      </Container>
-      <SearchResult data={filter} SelectedOptions={SelectedOptions} />
+          </Filtersection>
+        </Container>
+        <SearchResult data={filterdata} MyCartBtn={MyCartBtn} />
+      </dataItems.Provider>
     </>
   );
 };
