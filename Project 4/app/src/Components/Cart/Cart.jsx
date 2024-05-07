@@ -1,12 +1,13 @@
 import React from "react";
+import styled from "styled-components";
 import { Container, Base_Url, Button } from "../../App";
 import { NotAvailable } from "../SearchResults/SearchResult";
-import styled from "styled-components";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartItems } from "../../Context/Cart";
 import { dataItems } from "../../Context/data";
 import { FilterCards, FilterCard } from "../SearchResults/SearchResult";
 import { MdDelete } from "react-icons/md";
+import Bill from "../Bill/Bill";
 
 const Cart = () => {
   const value = useContext(CartItems);
@@ -16,7 +17,6 @@ const Cart = () => {
     let newobj = value.mergedCart.filter((item) => {
       return item.name != name;
     });
-
     value.setMergedCart(newobj);
   };
 
@@ -63,71 +63,89 @@ const Cart = () => {
       value.setMergedCart(updatedCart);
     }
   };
+  // if (value && value.mergedCart) {
+  //   localStorage.setItem("mergedCart", JSON.stringify(value.mergedCart));
+  // }
 
+  // // Get mergedCart from localStorage
+  // const mergedCartFromStorage = localStorage.getItem("mergedCart");
+
+  // if (mergedCartFromStorage) {
+  //   // Convert stored data back to JavaScript object
+  //   const parsedMergedCart = JSON.parse(mergedCartFromStorage);
+
+  //   if (parsedMergedCart) {
+  //     value.setMergedCart(parsedMergedCart);
+  //   }
+  // } else {
+  //   console.log("No mergedCart found in localStorage");
+  // }
   return (
     <MyCartContainer>
       <Container>
         <FilterCards>
-          {value.mergedCart?.map(
-            ({ name, image, text, price, quantity }, i) => (
-              <FilterCard key={i} iscart={"true"}>
-                <div className="Foodimg">
-                  <img src={Base_Url + image} alt="Food image" />
-                </div>
-                <div className="Foodinfo">
-                  <div className="info">
-                    <h3>{name}</h3>
-                    <p>{text}</p>
+          <div className="CartFilterCards">
+            {value.mergedCart?.map(
+              ({ name, image, text, price, quantity }, i) => (
+                <FilterCard key={i} iscart={"true"}>
+                  <div className="Foodimg">
+                    <img src={Base_Url + image} alt="Food image" />
                   </div>
-                  <div className="Delete">
-                    <Button
-                      onClick={() => {
-                        Delete(name);
-                      }}
-                    >
-                      <MdDelete />
-                    </Button>
-                  </div>
-                  <div className="btn_div">
-                    <div className="quantity">
+                  <div className="Foodinfo">
+                    <div className="info">
+                      <h3>{name}</h3>
+                      <p>{text}</p>
+                    </div>
+                    <div className="Delete">
                       <Button
-                        onClick={async (e) => {
-                          handleQuantity(e, quantity, name);
-                          if (quantity < 2) {
-                            Delete(name);
-                          }
+                        onClick={() => {
+                          Delete(name);
                         }}
                       >
-                        -
-                      </Button>
-
-                      <span>{quantity}</span>
-                      <Button
-                        onClick={(e) => {
-                          handleQuantity(e, quantity, name);
-                        }}
-                      >
-                        +
+                        <MdDelete />
                       </Button>
                     </div>
-                    <div className="price">
-                      <Button>${price.toFixed(2)}</Button>
+                    <div className="btn_div">
+                      <div className="quantity">
+                        <Button
+                          onClick={async (e) => {
+                            handleQuantity(e, quantity, name);
+                            if (quantity < 2) {
+                              Delete(name);
+                            }
+                          }}
+                        >
+                          -
+                        </Button>
+                        <span>{quantity}</span>
+                        <Button
+                          onClick={(e) => {
+                            handleQuantity(e, quantity, name);
+                          }}
+                        >
+                          +
+                        </Button>
+                      </div>
+                      <div className="price">
+                        <Button>${price.toFixed(2)}</Button>
+                      </div>
                     </div>
                   </div>
+                </FilterCard>
+              )
+            )}
+            {value.mergedCart?.length === 0 && (
+              <NotAvailable>
+                <div className="message">
+                  <div className="message_img">
+                    <img src="Empty Cart.png" alt="Not Available" />
+                  </div>
+                  <h1>Add something to your cart !</h1>
                 </div>
-              </FilterCard>
-            )
-          )}
-          {value.mergedCart?.length === 0 && (
-            <NotAvailable>
-              <div className="message">
-                <div className="message_img">
-                  <img src="Empty Cart.png" alt="Not Available" />
-                </div>
-                <h1>Add Something !</h1>
-              </div>
-            </NotAvailable>
-          )}
+              </NotAvailable>
+            )}
+          </div>
+          {value.mergedCart?.length > 0 && <Bill />}
         </FilterCards>
       </Container>
     </MyCartContainer>
@@ -135,4 +153,6 @@ const Cart = () => {
 };
 
 export default Cart;
-const MyCartContainer = styled.div``;
+const MyCartContainer = styled.div`
+  padding-bottom: 50px;
+`;

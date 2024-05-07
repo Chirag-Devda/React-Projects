@@ -1,5 +1,4 @@
 import { styled, css } from "styled-components";
-import React from "react";
 import { Container, Base_Url, Button } from "../../App";
 import { useState, useEffect } from "react";
 import { CartItems } from "../../Context/Cart";
@@ -8,10 +7,12 @@ import Cart from "../Cart/Cart";
 const SearchResult = ({ data, MyCartBtn }) => {
   const [cart, setcart] = useState([]);
   const [mergedCart, setMergedCart] = useState([]);
+
   const handleCart = (index) => {
     let item = data[index];
     setcart([...cart, item]);
   };
+
   useEffect(() => {
     let mergedCartObj = cart.reduce((acc, item) => {
       if (!acc[item.name]) {
@@ -26,6 +27,7 @@ const SearchResult = ({ data, MyCartBtn }) => {
 
     let mergedCartArray = Object.values(mergedCartObj);
     setMergedCart(mergedCartArray);
+    savetols();
   }, [cart]);
 
   return (
@@ -82,11 +84,14 @@ const SearchResult = ({ data, MyCartBtn }) => {
 };
 
 export default SearchResult;
+
+// Styled Components
 const FoodCardsContainer = styled.section`
   background-image: url("bg.png");
   min-height: calc(100vh - 190px);
   background-size: cover;
 `;
+
 export const FilterCards = styled.div`
   display: flex;
   justify-content: center;
@@ -95,6 +100,13 @@ export const FilterCards = styled.div`
   row-gap: 32px;
   column-gap: 20px;
   padding-top: 64px;
+
+  .CartFilterCards {
+    display: flex;
+    flex-direction: column;
+    row-gap: 32px;
+    height: 100%;
+  }
 `;
 export const FilterCard = styled.div`
   border: none; /* Remove the initial border */
@@ -139,12 +151,11 @@ export const FilterCard = styled.div`
     .btn_div {
       display: flex;
       gap: 20px;
-
-      .quantity {
-        display: flex;
-        align-items: center;
-        gap: 13px;
-      }
+    }
+    .quantity {
+      display: flex;
+      align-items: center;
+      gap: 13px;
     }
 
     .Delete {
@@ -208,7 +219,7 @@ export const NotAvailable = styled.div`
     white-space: nowrap;
     font-size: 2rem;
     @media screen and (0 < width < 768px) {
-      font-size: 2.5rem;
+      font-size: 1.5rem;
     }
   }
 `;

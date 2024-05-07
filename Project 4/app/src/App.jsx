@@ -44,7 +44,7 @@ const App = () => {
         setfilterdata(json);
         setloading(false);
       } catch (error) {
-        seterror("There is problem to fetch data", error);
+        seterror("There is problem to fetch data");
       }
     };
     Fetchedata();
@@ -79,6 +79,7 @@ const App = () => {
   };
   if (error) return <div>{error}</div>;
   if (loading) return <div>Loading........</div>;
+
   return (
     <>
       <dataItems.Provider value={data}>
