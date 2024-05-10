@@ -1,7 +1,7 @@
 import React from "react";
 
 const App = () => {
-  return <div className=" justify-start bg-red-700 flex"></div>;
+  return <div className=" flex justify-normal bg-red-600">Chirag Devda</div>;
 };
 
 export default App;
