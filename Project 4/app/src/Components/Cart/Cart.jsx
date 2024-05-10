@@ -63,23 +63,9 @@ const Cart = () => {
       value.setMergedCart(updatedCart);
     }
   };
-  // if (value && value.mergedCart) {
-  //   localStorage.setItem("mergedCart", JSON.stringify(value.mergedCart));
-  // }
-
-  // // Get mergedCart from localStorage
-  // const mergedCartFromStorage = localStorage.getItem("mergedCart");
-
-  // if (mergedCartFromStorage) {
-  //   // Convert stored data back to JavaScript object
-  //   const parsedMergedCart = JSON.parse(mergedCartFromStorage);
-
-  //   if (parsedMergedCart) {
-  //     value.setMergedCart(parsedMergedCart);
-  //   }
-  // } else {
-  //   console.log("No mergedCart found in localStorage");
-  // }
+  useEffect(() => {
+    localStorage.setItem("data", JSON.stringify(value.mergedCart));
+  }, [value.mergedCart]);
   return (
     <MyCartContainer>
       <Container>

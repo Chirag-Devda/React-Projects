@@ -27,9 +27,14 @@ const SearchResult = ({ data, MyCartBtn }) => {
 
     let mergedCartArray = Object.values(mergedCartObj);
     setMergedCart(mergedCartArray);
-    savetols();
   }, [cart]);
 
+  useEffect(() => {
+    let data = localStorage.getItem("data");
+    if (data) {
+      setcart(JSON.parse(data));
+    }
+  }, []);
   return (
     <CartItems.Provider value={{ mergedCart, setMergedCart }}>
       <FoodCardsContainer>

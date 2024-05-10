@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useState } from "react";
 import SearchResult from "./Components/SearchResults/SearchResult";
-export let Base_Url = "http://localhost:9000";
 import { dataItems } from "./Context/data";
+import { CartItems } from "./Context/Cart";
+import { useContext } from "react";
+export let Base_Url = "http://localhost:9000";
 
 const ButtonsArray = [
   {
@@ -79,7 +81,6 @@ const App = () => {
   };
   if (error) return <div>{error}</div>;
   if (loading) return <div>Loading........</div>;
-
   return (
     <>
       <dataItems.Provider value={data}>
