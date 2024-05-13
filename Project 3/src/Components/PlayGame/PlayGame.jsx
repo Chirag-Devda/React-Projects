@@ -3,6 +3,116 @@ import styled, { css } from "styled-components";
 import { useState } from "react";
 import { useEffect } from "react";
 
+const PlayGame = () => {
+  const [ComputerDice, setComputerDice] = useState(1);
+  const [UserDice, setUserDice] = useState();
+  const [TotalScore, setTotalScore] = useState(0);
+  const [ShowRules, setShowRules] = useState(false);
+  const [Error, setError] = useState("");
+  // Array of Dice numbers
+  let Dices = [1, 2, 3, 4, 5, 6];
+
+  // Function for making Computer Choice
+  const ComputerChoice = () => {
+    if (!UserDice) {
+      setError("You have not selected any number");
+      return;
+    } // this will stop dice to roll when userDice was not selected
+    let random = Math.floor(Math.random() * 6 + 1);
+    setComputerDice(random);
+  };
+
+  // Function for Total Scores
+  const TotalScorefun = () => {
+    if (UserDice === ComputerDice) {
+      let score = TotalScore + ComputerDice;
+      setTotalScore(score);
+    } else {
+      if (UserDice != undefined) {
+        let score = TotalScore - 2;
+        setTotalScore(score);
+      }
+    }
+    setUserDice(undefined);
+  };
+  useEffect(() => {
+    TotalScorefun();
+  }, [ComputerDice]);
+
+  return (
+    <Container>
+      <ScoreAndChoiceBoard>
+        <ScoresBox>
+          <Score>{TotalScore}</Score>
+          <Scorecontent>Total Score</Scorecontent>
+        </ScoresBox>
+        <ChoiceBox>
+          <span className="Error">{Error}</span>
+          <Choices>
+            {Dices.map((value, i) => (
+              <Box
+                key={i}
+                isselected={(value === UserDice).toString()}
+                onClick={() => {
+                  setUserDice(value);
+                  setError(""); // when userDice was selected
+                }}
+              >
+                {value}
+              </Box>
+            ))}
+          </Choices>
+          <span>Select Number</span>
+        </ChoiceBox>
+      </ScoreAndChoiceBoard>
+      <GameContainer>
+        <DiceContainer onClick={ComputerChoice}>
+          <Dice>
+            <img
+              src={`images/Dice/dice_${ComputerDice}.png`}
+              alt={`Dice ${ComputerDice}`}
+            />
+          </Dice>
+          <div>Click on Dice To Roll</div>
+        </DiceContainer>
+        <OptionsButtons>
+          <button
+            onClick={() => {
+              setTotalScore(0);
+            }}
+          >
+            Reset Score
+          </button>
+          <button
+            onClick={() => {
+              setShowRules((prev) => !prev);
+            }}
+          >
+            {ShowRules ? "Close Rules" : "Show Rules"}
+          </button>
+          {ShowRules ? (
+            <Rules>
+              <h1>How to play dice game </h1>
+              <div>
+                <p>Select any number</p>
+                <p>Click on dice image</p>
+                <p>
+                  after click on dice if selected number is equal to dice number
+                  you will get same point as dice{" "}
+                </p>
+                <p>if you get wrong guess then 2 point will be dedcuted </p>
+              </div>
+            </Rules>
+          ) : (
+            <></>
+          )}
+        </OptionsButtons>
+      </GameContainer>
+    </Container>
+  );
+};
+
+export default PlayGame;
 const Choices = styled.div`
   display: flex;
   gap: 24px;
@@ -217,114 +327,3 @@ const Rules = styled.div`
     }
   }
 `;
-
-const PlayGame = () => {
-  const [ComputerDice, setComputerDice] = useState(1);
-  const [UserDice, setUserDice] = useState();
-  const [TotalScore, setTotalScore] = useState(0);
-  const [ShowRules, setShowRules] = useState(false);
-  const [Error, setError] = useState("");
-  // Array of Dice numbers
-  let Dices = [1, 2, 3, 4, 5, 6];
-
-  // Function for making Computer Choice
-  const ComputerChoice = () => {
-    if (!UserDice) {
-      setError("You have not selected any number");
-      return;
-    } // this will stop dice to roll when userDice was not selected
-    let random = Math.floor(Math.random() * 6 + 1);
-    setComputerDice(random);
-  };
-
-  // Function for Total Scores
-  const TotalScorefun = () => {
-    if (UserDice === ComputerDice) {
-      let score = TotalScore + ComputerDice;
-      setTotalScore(score);
-    } else {
-      if (UserDice != undefined) {
-        let score = TotalScore - 2;
-        setTotalScore(score);
-      }
-    }
-    setUserDice(undefined);
-  };
-  useEffect(() => {
-    TotalScorefun();
-  }, [ComputerDice]);
-
-  return (
-    <Container>
-      <ScoreAndChoiceBoard>
-        <ScoresBox>
-          <Score>{TotalScore}</Score>
-          <Scorecontent>Total Score</Scorecontent>
-        </ScoresBox>
-        <ChoiceBox>
-          <span className="Error">{Error}</span>
-          <Choices>
-            {Dices.map((value, i) => (
-              <Box
-                key={i}
-                isselected={(value === UserDice).toString()}
-                onClick={() => {
-                  setUserDice(value);
-                  setError(""); // when userDice was selected
-                }}
-              >
-                {value}
-              </Box>
-            ))}
-          </Choices>
-          <span>Select Number</span>
-        </ChoiceBox>
-      </ScoreAndChoiceBoard>
-      <GameContainer>
-        <DiceContainer onClick={ComputerChoice}>
-          <Dice>
-            <img
-              src={`images/Dice/dice_${ComputerDice}.png`}
-              alt={`Dice ${ComputerDice}`}
-            />
-          </Dice>
-          <div>Click on Dice To Roll</div>
-        </DiceContainer>
-        <OptionsButtons>
-          <button
-            onClick={() => {
-              setTotalScore(0);
-            }}
-          >
-            Reset Score
-          </button>
-          <button
-            onClick={() => {
-              setShowRules((prev) => !prev);
-            }}
-          >
-            {ShowRules ? "Close Rules" : "Show Rules"}
-          </button>
-          {ShowRules ? (
-            <Rules>
-              <h1>How to play dice game </h1>
-              <div>
-                <p>Select any number</p>
-                <p>Click on dice image</p>
-                <p>
-                  after click on dice if selected number is equal to dice number
-                  you will get same point as dice{" "}
-                </p>
-                <p>if you get wrong guess then 2 point will be dedcuted </p>
-              </div>
-            </Rules>
-          ) : (
-            <></>
-          )}
-        </OptionsButtons>
-      </GameContainer>
-    </Container>
-  );
-};
-
-export default PlayGame;
