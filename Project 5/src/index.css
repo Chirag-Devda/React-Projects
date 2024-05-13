@@ -9,3 +9,22 @@
     @apply container mx-auto px-40;
   }
 }
+@layer components {
+  .bg {
+    @apply inset-0 -z-10 min-h-screen items-center bg-cover bg-center px-2 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)];
+  }
+}
+@layer utilities {
+  .eye {
+    input[type="password"]::-ms-clear {
+      display: none;
+    }
+  }
+}
+/* Hide the default password toggle icon */
+input[type="password"]::-webkit-contacts-auto-fill-button,
+input[type="password"]::-webkit-contacts-auto-fill-button:focus-visible,
+input[type="password"]::-ms-reveal {
+  display: none;
+  visibility: hidden;
+}
