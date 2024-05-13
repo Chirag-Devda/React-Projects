@@ -2,6 +2,8 @@ import { styled, css } from "styled-components";
 import { Container, Base_Url, Button } from "../../App";
 import { useState, useEffect } from "react";
 import { CartItems } from "../../Context/Cart";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Cart from "../Cart/Cart";
 
 const SearchResult = ({ data, MyCartBtn }) => {
@@ -11,6 +13,16 @@ const SearchResult = ({ data, MyCartBtn }) => {
   const handleCart = (index) => {
     let item = data[index];
     setcart([...cart, item]);
+    toast.success("Added to cart", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   };
 
   useEffect(() => {
@@ -37,6 +49,18 @@ const SearchResult = ({ data, MyCartBtn }) => {
   }, []);
   return (
     <CartItems.Provider value={{ mergedCart, setMergedCart }}>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      ></ToastContainer>
       <FoodCardsContainer>
         {MyCartBtn ? (
           <Cart />
