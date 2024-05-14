@@ -10,22 +10,27 @@ const Navbar = () => {
           <span className="text-[#16de00]">Vault&gt;</span>
         </div>
 
-        <button
-          className="right-4 flex items-center  justify-start 
-         rounded-full border bg-[#6633ee] py-[4px] pr-[15px]"
+        <a
+          href="https://github.com/Chirag-Devda/React-Projects/tree/main/Project%205"
+          target="_blank"
         >
-          <div>
-            <img
-              className="invert"
-              width={55}
-              src="icons/github-logo.png"
-              alt="Github-Logo"
-            />
-          </div>
-          <span className="text-brown-500 text-[19px] font-semibold">
-            Github
-          </span>
-        </button>
+          <button
+            className="right-4 flex items-center  justify-start 
+         rounded-full border bg-[#6633ee] py-[4px] pr-[15px]"
+          >
+            <div>
+              <img
+                className="invert"
+                width={55}
+                src="icons/github-logo.png"
+                alt="Github-Logo"
+              />
+            </div>
+            <span className="text-brown-500 text-[19px] font-semibold">
+              Github
+            </span>
+          </button>
+        </a>
       </div>
     </nav>
   );

@@ -37,7 +37,7 @@ const Manager = () => {
         theme: "dark",
       });
     } else {
-      toast.success("Password not saved", {
+      toast.error("Password not saved", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -86,7 +86,7 @@ const Manager = () => {
         progress: undefined,
         theme: "dark",
       });
-      let filter = passwordsArray.filter((item, index) => {
+      let filter = passwordsArray.filter((item) => {
         return item.id !== id;
       });
       setpasswordsArray(filter);
@@ -111,7 +111,7 @@ const Manager = () => {
     setform({ ...form, [e.target.name]: e.target.value });
   };
   return (
-    <main className="bg">
+    <main className="bg max-h-ful: min-h-[83.3vh]">
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -208,7 +208,7 @@ const Manager = () => {
                 {passwordsArray.map((item, i) => (
                   <tr key={i} className="text-center">
                     <td className="max-w-[100px] py-3">
-                      <div className="relative flex items-center gap-3">
+                      <div className="relative flex items-center justify-center gap-3">
                         <span className="max-w-[70%] overflow-hidden text-ellipsis pl-4 text-[11px] md:text-xl">
                           <a href={item.site} target="_blank">
                             {item.site}
@@ -223,7 +223,7 @@ const Manager = () => {
                       </div>
                     </td>
                     <td className="max-w-[100px]  py-3">
-                      <div className="relative flex items-center   gap-3">
+                      <div className="relative flex items-center justify-center gap-3">
                         <span className="max-w-[60%] overflow-hidden text-ellipsis pl-4 text-[11px] md:text-xl">
                           {item.username}
                         </span>
@@ -236,7 +236,7 @@ const Manager = () => {
                       </div>
                     </td>
                     <td className="max-w-[100px]  py-3">
-                      <div className="relative flex items-center   gap-3">
+                      <div className="relative flex items-center justify-center gap-3">
                         <span className="max-w-[60%] overflow-hidden text-ellipsis pl-4 text-[11px] md:text-xl">
                           {item.password}
                         </span>
