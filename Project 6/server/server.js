@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
+const cors = require("cors");
 const port = 3000;
 const { MongoClient } = require("mongodb");
 const bodyParser = require("body-parser");
@@ -8,6 +9,7 @@ const bodyParser = require("body-parser");
 // Midelware
 dotenv.config();
 app.use(bodyParser.json());
+app.use(cors());
 
 // Connection URL
 const url = "mongodb://localhost:27017";
@@ -22,13 +24,15 @@ app.get("/", async (req, res) => {
   const findResult = await collection.find({}).toArray();
   res.json(findResult);
 });
+
 app.post("/", async (req, res) => {
   const newContact = req.body;
   const db = client.db(dbName);
   const collection = db.collection("Contacts");
   const insertResult = await collection.insertOne(newContact);
-  res.send(newContact);
+  res.send({ success: true, result: insertResult });
 });
+
 app.delete("/", async (req, res) => {
   const deleteid = req.body;
   const db = client.db(dbName);
