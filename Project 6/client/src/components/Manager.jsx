@@ -27,33 +27,69 @@ const Manager = () => {
   const [Contacts, setContacts] = useState([])
   const [ShowForm, SetShowForm] = useState({ click: false, Btn: 'Add Contact' })
   const [SearchValue, setSearchValue] = useState('')
+  const [filterdata, setfilterdata] = useState()
 
   useEffect(() => {
-    const data = localStorage.getItem('data')
-    if (data) {
-      setContacts(JSON.parse(data))
-    }
+    getItem()
   }, [])
+  const getItem = async () => {
+    let r = await fetch('http://localhost:3000/')
+    let res = await r.json()
+    setContacts(res)
+    setfilterdata(res)
+  }
 
-  const AddContact = (e) => {
+  const AddContact = async (e) => {
     e.preventDefault()
+
     if (form.name && form.email && form.number) {
-      setform({ ...form, id: uuidv4() })
-      setContacts([...Contacts, form])
-      localStorage.setItem('data', JSON.stringify([...Contacts, form]))
+      const newContact = { ...form, id: uuidv4() }
+      setContacts([...Contacts, newContact])
+      setfilterdata([...filterdata, newContact])
+      localStorage.setItem('data', JSON.stringify())
+      if (form.id) {
+        const response = fetch('http://localhost:3000/', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id: form.id }),
+        })
+        const res = fetch('http://localhost:3000/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newContact),
+        })
+      } else {
+        const response = fetch('http://localhost:3000/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newContact),
+        })
+      }
     }
   }
+
   const DeleteContact = (id) => {
-    setContacts(Contacts.filter((item) => item.id != id))
-    localStorage.setItem(
-      'data',
-      JSON.stringify(Contacts.filter((item) => item.id != id)),
-    )
+    setfilterdata(filterdata.filter((item) => item.id != id))
+    setContacts(filterdata.filter((item) => item.id != id))
+    const response = fetch('http://localhost:3000/', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: id }),
+    })
   }
   const EditContact = (i, id) => {
     let currentobj = Contacts[i]
-    setform(currentobj)
+    setform({ ...currentobj, id: id })
     setContacts(Contacts.filter((item) => item.id != id))
+    setfilterdata(filterdata.filter((item) => item.id != id))
   }
 
   const ToggleForm = (CurrentForm) => {
@@ -63,23 +99,35 @@ const Manager = () => {
       Btn: CurrentForm,
     }))
   }
-  const clearSearch = () => {
+  const clearSearch = async () => {
     setSearchValue('')
-    const data = localStorage.getItem('data')
-    if (data) {
-      setContacts(JSON.parse(data))
-    }
+    let r = await fetch('http://localhost:3000/')
+    let res = await r.json()
+    setfilterdata(res)
   }
 
   const handleChange = (e) => {
     setform({ ...form, [e.target.name]: e.target.value })
   }
-  const handleSearch = (e) => {
-    setSearchValue(e.target.value)
-    let filter = Contacts.filter((item) => {
-      return item.name.toLowerCase().includes(SearchValue.toLowerCase())
-    })
-    setContacts(filter)
+  const handleSearch = async (e) => {
+    const searchedValued = e.target.value
+
+    // Update the search value state
+    setSearchValue(searchedValued)
+
+    if (!searchedValued) {
+      // If the search value is empty, get data from local storage
+      let r = await fetch('http://localhost:3000/')
+      let res = await r.json()
+      setContacts(res)
+      setfilterdata(res)
+    } else {
+      // Filter contacts based on the search value
+      const filter = Contacts.filter((item) =>
+        item.name.toLowerCase().includes(SearchValue.toLowerCase()),
+      )
+      setfilterdata(filter)
+    }
   }
   return (
     <div className="myContainer">
@@ -116,7 +164,7 @@ const Manager = () => {
         </div>
       </div>
       <div className="contact-container relative flex h-[81vh] flex-col  gap-3 overflow-y-scroll py-2">
-        {Contacts.map((items, i) => (
+        {filterdata?.map((items, i) => (
           <div
             key={i}
             className="Contact flex items-center justify-between rounded-lg bg-[#FFEAAE] px-4"
@@ -155,6 +203,14 @@ const Manager = () => {
             </div>
           </div>
         ))}
+        {filterdata?.length === 0 && (
+          <div className="relative top-[50%] flex items-center justify-center gap-4">
+            <div className="logo">
+              <img src="images\Handle-Contact.png" alt="" width={40} />
+            </div>
+            <div className="text-[30px] text-white">No Contact Found</div>
+          </div>
+        )}
         {ShowForm.click && (
           <form
             action=""
