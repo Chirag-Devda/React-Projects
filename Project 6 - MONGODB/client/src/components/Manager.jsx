@@ -29,15 +29,15 @@ const Manager = () => {
   const [SearchValue, setSearchValue] = useState('')
   const [filterdata, setfilterdata] = useState()
 
-  useEffect(() => {
-    getItem()
-  }, [])
   const getItem = async () => {
     let r = await fetch('http://localhost:3000/')
     let res = await r.json()
     setContacts(res)
     setfilterdata(res)
   }
+  useEffect(() => {
+    getItem()
+  }, [])
 
   const AddContact = async (e) => {
     e.preventDefault()
@@ -45,8 +45,8 @@ const Manager = () => {
     if (form.name && form.email && form.number) {
       const newContact = { ...form, id: uuidv4() }
       setContacts([...Contacts, newContact])
-      setfilterdata([...filterdata, newContact])
-      localStorage.setItem('data', JSON.stringify())
+      setfilterdata([...Contacts, newContact])
+      // localStorage.setItem('data', JSON.stringify())
       if (form.id) {
         const response = fetch('http://localhost:3000/', {
           method: 'DELETE',
