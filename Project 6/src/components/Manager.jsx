@@ -30,64 +30,33 @@ const Manager = () => {
   const [filterdata, setfilterdata] = useState()
 
   useEffect(() => {
-    getItem()
+    const data = localStorage.getItem('data')
+    if (data) {
+      setContacts(JSON.parse(data))
+      setfilterdata(JSON.parse(data))
+    }
   }, [])
-  const getItem = async () => {
-    let r = await fetch('http://localhost:3000/')
-    let res = await r.json()
-    setContacts(res)
-    setfilterdata(res)
-  }
 
-  const AddContact = async (e) => {
+  const AddContact = (e) => {
     e.preventDefault()
-
     if (form.name && form.email && form.number) {
       const newContact = { ...form, id: uuidv4() }
       setContacts([...Contacts, newContact])
-      setfilterdata([...filterdata, newContact])
-      localStorage.setItem('data', JSON.stringify())
-      if (form.id) {
-        const response = fetch('http://localhost:3000/', {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ id: form.id }),
-        })
-        const res = fetch('http://localhost:3000/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newContact),
-        })
-      } else {
-        const response = fetch('http://localhost:3000/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newContact),
-        })
-      }
+      setfilterdata([...Contacts, newContact])
+      localStorage.setItem('data', JSON.stringify([...Contacts, newContact]))
     }
   }
-
   const DeleteContact = (id) => {
+    setContacts(Contacts.filter((item) => item.id != id))
     setfilterdata(filterdata.filter((item) => item.id != id))
-    setContacts(filterdata.filter((item) => item.id != id))
-    const response = fetch('http://localhost:3000/', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id: id }),
-    })
+    localStorage.setItem(
+      'data',
+      JSON.stringify(Contacts.filter((item) => item.id != id)),
+    )
   }
   const EditContact = (i, id) => {
     let currentobj = Contacts[i]
-    setform({ ...currentobj, id: id })
+    setform(currentobj)
     setContacts(Contacts.filter((item) => item.id != id))
     setfilterdata(filterdata.filter((item) => item.id != id))
   }
@@ -99,28 +68,29 @@ const Manager = () => {
       Btn: CurrentForm,
     }))
   }
-  const clearSearch = async () => {
+  const clearSearch = () => {
     setSearchValue('')
-    let r = await fetch('http://localhost:3000/')
-    let res = await r.json()
-    setfilterdata(res)
+    const data = localStorage.getItem('data')
+    if (data) {
+      setfilterdata(JSON.parse(data))
+    }
   }
 
   const handleChange = (e) => {
     setform({ ...form, [e.target.name]: e.target.value })
   }
-  const handleSearch = async (e) => {
+  const handleSearch = (e) => {
     const searchedValued = e.target.value
 
     // Update the search value state
     setSearchValue(searchedValued)
 
     if (!searchedValued) {
-      // If the search value is empty, get data from local storage
-      let r = await fetch('http://localhost:3000/')
-      let res = await r.json()
-      setContacts(res)
-      setfilterdata(res)
+      const data = localStorage.getItem('data')
+      if (data) {
+        setContacts(JSON.parse(data))
+        setfilterdata(JSON.parse(data))
+      }
     } else {
       // Filter contacts based on the search value
       const filter = Contacts.filter((item) =>
