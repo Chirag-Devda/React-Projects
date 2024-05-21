@@ -16,7 +16,22 @@ const Sidenav = () => {
     },
   ];
   return (
-    <Stack justify="space-between" boxShadow="lg" w="16rem" h="100vh">
+    <Stack
+      bg="white"
+      justify="space-between"
+      boxShadow={{
+        base: "none",
+        md: "lg",
+      }}
+      w={{
+        base: "full",
+        md: "16rem",
+      }}
+      h={{
+        base: "98vh",
+        md: "100vh",
+      }}
+    >
       <Box>
         <HStack pt="3.5rem" justifyContent="center">
           <img src="images/logo.png" alt="logo" width={40} />

@@ -11,11 +11,22 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import { CgProfile } from "react-icons/cg";
-const Topnav = () => {
+import { FaBars } from "react-icons/fa6";
+
+const Topnav = ({ title, onOpen }) => {
   return (
-    <Box>
-      <HStack maxW="60rem" mx="auto" h="16" justify="space-between">
-        <Heading fontWeight="light">Dashboard</Heading>
+    <Box px="4" bg="white">
+      <HStack maxW="70rem" mx="auto" h="16" justify="space-between">
+        <Icon
+          as={FaBars}
+          fontSize="30px"
+          display={{
+            base: "block",
+            md: "none",
+          }}
+          onClick={onOpen}
+        />
+        <Heading fontWeight="light">{title}</Heading>
         <Menu>
           <MenuButton>
             <Icon as={CgProfile} fontSize="30px" />
