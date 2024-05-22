@@ -1,4 +1,5 @@
 import { extendTheme, withDefaultColorScheme } from "@chakra-ui/react";
+import { CgOverflow } from "react-icons/cg";
 
 export const theme = extendTheme(
   {
@@ -20,6 +21,9 @@ export const theme = extendTheme(
       },
       green: {
         5: "#059669",
+      },
+      gray: {
+        5: "#1c1c1c33",
       },
     },
     fonts: {
@@ -102,6 +106,7 @@ export const theme = extendTheme(
         // styles for the `body`
         body: {
           bg: "#F3F3F7",
+          overflowY: "hidden",
         },
       },
     },

@@ -9,6 +9,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Text,
 } from "@chakra-ui/react";
 import { CgProfile } from "react-icons/cg";
 import { FaBars } from "react-icons/fa6";
@@ -26,7 +27,7 @@ const Topnav = ({ title, onOpen }) => {
           }}
           onClick={onOpen}
         />
-        <Heading fontWeight="light">{title}</Heading>
+        <Text textStyle="h2">{title}</Text>
         <Menu>
           <MenuButton>
             <Icon as={CgProfile} fontSize="30px" />
