@@ -25,6 +25,9 @@ export const theme = extendTheme(
       gray: {
         5: "#1c1c1c33",
       },
+      Bgray: {
+        5: "#D8DDE2",
+      },
     },
     fonts: {
       heading: `Ubuntu`,

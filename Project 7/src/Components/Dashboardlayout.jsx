@@ -23,6 +23,11 @@ const Dashboardlayout = ({ title, children }) => {
           overflowY="auto"
           h="calc(100vh - 87.6px)"
           maxW="70rem"
+          css={{
+            "::-webkit-scrollbar": {
+              display: "none",
+            },
+          }}
         >
           {children}
         </Container>

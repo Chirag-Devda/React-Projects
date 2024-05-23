@@ -2,9 +2,10 @@ import React from "react";
 import { CustomCard } from "../../../chakra/CustomCard";
 import { Flex, Tag, Text } from "@chakra-ui/react";
 
-const InfoCard = ({ TagName, Texts, inverted, imageUrl }) => {
+const InfoCard = ({ TagName, Texts, inverted, imageUrl, flexGrow }) => {
   return (
     <CustomCard
+      flexGrow={flexGrow ? "1" : ""}
       bg={inverted ? "p.purple" : "white"}
       bgImage={imageUrl}
       bgPos="center"
