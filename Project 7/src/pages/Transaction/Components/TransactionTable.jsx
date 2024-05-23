@@ -2,14 +2,13 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Stack,
   Text,
+  Box,
 } from "@chakra-ui/react";
 const tableData = [
   {
@@ -77,7 +76,6 @@ const tableData = [
     status: "completed",
   },
 ];
-
 const statusColor = {
   pending: "#797E82",
   processing: "#F5A50B",
@@ -86,7 +84,7 @@ const statusColor = {
 };
 const TransactionTable = () => {
   return (
-    <TableContainer>
+    <TableContainer display={{ base: "none", lg: "block" }}>
       <Table colorScheme="gray" variant="simple">
         <Thead mb="16px">
           <Tr>
@@ -126,8 +124,18 @@ const TransactionTable = () => {
               <Td fontWeight="500" fontSize="sm">
                 {data.amount}
               </Td>
-              <Td fontWeight="500" fontSize="sm">
-                {data.status}
+              <Td>
+                <Box
+                  fontWeight="500"
+                  fontSize="sm"
+                  borderRadius="full"
+                  width="fit-content"
+                  px="6px"
+                  py={1}
+                  bg={statusColor[data.status]}
+                >
+                  {data.status}
+                </Box>
               </Td>
             </Tr>
           ))}

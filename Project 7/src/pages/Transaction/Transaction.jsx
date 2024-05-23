@@ -5,6 +5,7 @@ import Button from "../../Components/Button.jsx";
 import { FaArrowDown } from "react-icons/fa6";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import TransactionTable from "./Components/TransactionTable.jsx";
+import TransactionCard from "./Components/TransactionCard.jsx";
 const Transaction = () => {
   const Tabes = [
     {
@@ -66,12 +67,15 @@ const Transaction = () => {
           <TabPanels>
             <TabPanel>
               <TransactionTable />
+              <TransactionCard />
             </TabPanel>
             <TabPanel>
               <TransactionTable />
+              <TransactionCard />
             </TabPanel>
             <TabPanel>
               <TransactionTable />
+              <TransactionCard />
             </TabPanel>
           </TabPanels>
         </Tabs>
