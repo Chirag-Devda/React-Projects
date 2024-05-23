@@ -1,9 +1,6 @@
 import {
   Box,
-  Button,
-  Flex,
   HStack,
-  Heading,
   Icon,
   Menu,
   MenuButton,
@@ -13,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { CgProfile } from "react-icons/cg";
 import { FaBars } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const Topnav = ({ title, onOpen }) => {
   return (
@@ -34,7 +32,9 @@ const Topnav = ({ title, onOpen }) => {
           </MenuButton>
           <MenuList>
             <MenuItem>Log Out</MenuItem>
-            <MenuItem>Support</MenuItem>
+            <Link to="/support">
+              <MenuItem>Support</MenuItem>
+            </Link>
           </MenuList>
         </Menu>
       </HStack>
