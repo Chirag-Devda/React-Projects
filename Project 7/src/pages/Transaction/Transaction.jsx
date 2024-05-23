@@ -67,15 +67,12 @@ const Transaction = () => {
           <TabPanels>
             <TabPanel>
               <TransactionTable />
-              <TransactionCard />
             </TabPanel>
             <TabPanel>
               <TransactionTable />
-              <TransactionCard />
             </TabPanel>
             <TabPanel>
               <TransactionTable />
-              <TransactionCard />
             </TabPanel>
           </TabPanels>
         </Tabs>

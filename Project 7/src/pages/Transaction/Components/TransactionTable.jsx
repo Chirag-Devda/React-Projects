@@ -10,6 +10,7 @@ import {
   Text,
   Box,
 } from "@chakra-ui/react";
+import TransactionCard from "./TransactionCard";
 const tableData = [
   {
     id: "HD82NA2H",
@@ -84,64 +85,67 @@ const statusColor = {
 };
 const TransactionTable = () => {
   return (
-    <TableContainer display={{ base: "none", lg: "block" }}>
-      <Table colorScheme="gray" variant="simple">
-        <Thead mb="16px">
-          <Tr>
-            <Th>ID</Th>
-            <Th>Date & Time</Th>
-            <Th>Type</Th>
-            <Th>Amount</Th>
-            <Th>Status</Th>
-          </Tr>
-        </Thead>
-        <Tbody color="p.black">
-          {tableData.map((data) => (
-            <Tr key={data.id}>
-              <Td fontWeight="500" fontSize="sm">
-                {data.id}
-              </Td>
-              <Td>
-                <Stack spacing="0">
-                  <Text fontWeight="500" fontSize="sm">
-                    {data.date}
-                  </Text>
-                  <Text color="black.60" fontSize="xs">
-                    {data.time}
-                  </Text>
-                </Stack>
-              </Td>
-              <Td>
-                <Stack spacing="0">
-                  <Text fontWeight="500" fontSize="sm">
-                    {data.type.name}
-                  </Text>
-                  <Text color="black.60" fontSize="xs">
-                    {data.type?.tag}
-                  </Text>
-                </Stack>
-              </Td>
-              <Td fontWeight="500" fontSize="sm">
-                {data.amount}
-              </Td>
-              <Td>
-                <Box
-                  fontWeight="500"
-                  fontSize="sm"
-                  borderRadius="full"
-                  width="fit-content"
-                  px="6px"
-                  py={1}
-                  bg={statusColor[data.status]}
-                >
-                  {data.status}
-                </Box>
-              </Td>
+    <>
+      <TableContainer display={{ base: "none", lg: "block" }}>
+        <Table colorScheme="gray" variant="simple">
+          <Thead mb="16px">
+            <Tr>
+              <Th>ID</Th>
+              <Th>Date & Time</Th>
+              <Th>Type</Th>
+              <Th>Amount</Th>
+              <Th>Status</Th>
             </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
+          </Thead>
+          <Tbody color="p.black">
+            {tableData.map((data) => (
+              <Tr key={data.id}>
+                <Td fontWeight="500" fontSize="sm">
+                  {data.id}
+                </Td>
+                <Td>
+                  <Stack spacing="0">
+                    <Text fontWeight="500" fontSize="sm">
+                      {data.date}
+                    </Text>
+                    <Text color="black.60" fontSize="xs">
+                      {data.time}
+                    </Text>
+                  </Stack>
+                </Td>
+                <Td>
+                  <Stack spacing="0">
+                    <Text fontWeight="500" fontSize="sm">
+                      {data.type.name}
+                    </Text>
+                    <Text color="black.60" fontSize="xs">
+                      {data.type?.tag}
+                    </Text>
+                  </Stack>
+                </Td>
+                <Td fontWeight="500" fontSize="sm">
+                  {data.amount}
+                </Td>
+                <Td>
+                  <Box
+                    fontWeight="500"
+                    fontSize="sm"
+                    borderRadius="full"
+                    width="fit-content"
+                    px="6px"
+                    py={1}
+                    bg={statusColor[data.status]}
+                  >
+                    {data.status}
+                  </Box>
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
+      <TransactionCard tableData={tableData} statusColor={statusColor} />
+    </>
   );
 };
 
