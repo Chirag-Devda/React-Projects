@@ -9,6 +9,7 @@ const Dashboard = () => {
   return (
     <Dashboardlayout title="Dashboard">
       <Grid
+        justifyContent="center"
         templateColumns={{
           base: "repeat(1,1fr)",
           xl: "repeat(2,1fr)",

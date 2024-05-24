@@ -10,7 +10,13 @@ import InfoCard from "../Dashboard/Components/InfoCard";
 const Support = () => {
   return (
     <Dashboardlayout title="Support">
-      <Flex flexDirection="column" gap={10} mt={6}>
+      <Flex
+        justifyContent="center"
+        mb={6}
+        flexDirection="column"
+        gap={10}
+        mt={6}
+      >
         <SupportCard
           RightComponent={<ContactForm />}
           text="Have a question or just want to know more? Feel free to reach out to

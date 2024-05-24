@@ -33,7 +33,7 @@ const Transaction = () => {
       </Flex>
       <Card rounded="16px">
         <Tabs>
-          <TabList py="4">
+          <TabList overflow="scroll" py="4">
             {Tabes.map((tab) => (
               <Tab
                 _selected={{
