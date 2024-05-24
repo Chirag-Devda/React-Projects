@@ -62,7 +62,7 @@ const PricingSection = () => {
         </Flex>
         <TabPanels>
           <TabPanel>
-            <Image src="images/Graph.png" mt="3rem"></Image>
+            <Image width="100%" src="images/Graph.png" mt="3rem"></Image>
             <HStack justify="space-between">
               {Timings.map((time) => (
                 <Text key={time}>{time}</Text>
