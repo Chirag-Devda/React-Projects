@@ -1,6 +1,6 @@
 import React from "react";
 import { CustomCard } from "../../../chakra/CustomCard";
-import { Flex, Tag, Text } from "@chakra-ui/react";
+import { Tag, Text } from "@chakra-ui/react";
 
 const InfoCard = ({ TagName, Texts, inverted, imageUrl, flexGrow }) => {
   return (
