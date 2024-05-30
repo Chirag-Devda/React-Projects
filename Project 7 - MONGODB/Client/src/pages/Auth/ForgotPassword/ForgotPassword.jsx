@@ -24,7 +24,12 @@ const ForgotPassword = () => {
   return (
     <Container bg={{ base: "white", md: "transparent" }}>
       <Center minH="100vh">
-        <Card>
+        <Card
+          p={{
+            base: "0",
+            md: "10",
+          }}
+        >
           <Stack spacing="32px">
             <Stack gap="4">
               <Link to="/signin">
