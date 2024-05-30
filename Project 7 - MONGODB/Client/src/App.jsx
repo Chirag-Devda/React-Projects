@@ -1,7 +1,7 @@
+// Components imports
 import Transactions from "./pages/Transaction/Transaction.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import Support from "./pages/Support/Support.jsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Signup from "./pages/Auth/Signup/Signup.jsx";
 import Signin from "./pages/Auth/Signin/Signin.jsx";
 import RegisterVerifyEmail from "./pages/Auth/RegisterVerifyEmail/RegisterVerifyEmail.jsx";
@@ -10,6 +10,12 @@ import ForgotPassword from "./pages/Auth/ForgotPassword/ForgotPassword.jsx";
 import ForgotPasswordSent from "./pages/Auth/ForgotPasswordSent/ForgotPasswordSent.jsx";
 import ResetPassword from "./pages/Auth/ResetPassowrd/ResetPassowrd.jsx";
 import ResetPasswordSuccess from "./pages/Auth/ResetPasswordSuccess/ResetPasswordSuccess.jsx";
+
+// Library imports
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -61,10 +67,13 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
+  // Create a client
+  const queryClient = new QueryClient();
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-    </>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 
