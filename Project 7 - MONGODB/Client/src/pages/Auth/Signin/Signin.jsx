@@ -42,11 +42,8 @@ const Signin = () => {
             </Stack>
             <Formik
               initialValues={{
-                name: "",
-                surname: "",
                 email: "",
                 password: "",
-                repeatpassword: "",
               }}
               onSubmit={(values) => {
                 console.log(values);
