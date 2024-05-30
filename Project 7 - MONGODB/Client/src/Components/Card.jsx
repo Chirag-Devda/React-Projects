@@ -1,6 +1,6 @@
 import { Card as ChakraCard } from "@chakra-ui/react";
 
-const Card = ({ children }) => {
+const Card = ({ children, ...props }) => {
   return (
     <ChakraCard
       w="492px"
@@ -20,6 +20,7 @@ const Card = ({ children }) => {
         base: "none",
         md: "lg",
       }}
+      {...props}
     >
       {children}
     </ChakraCard>
