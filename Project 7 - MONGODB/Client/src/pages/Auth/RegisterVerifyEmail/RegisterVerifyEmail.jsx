@@ -12,7 +12,12 @@ const RegisterVerifyEmail = () => {
   return (
     <Container bg={{ base: "white", md: "transparent" }}>
       <Center minH="100vh">
-        <Card>
+        <Card
+          p={{
+            base: "0",
+            md: "10",
+          }}
+        >
           <VStack spacing={6}>
             <Icon boxSize={12} as={MdEmail} color="p.purple" />
             <Text fontWeight="medium" textStyle="h4">
