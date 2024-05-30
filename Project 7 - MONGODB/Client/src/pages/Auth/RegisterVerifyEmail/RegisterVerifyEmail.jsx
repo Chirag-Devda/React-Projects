@@ -10,13 +10,14 @@ import Card from "../../../Components/Card";
 import { MdEmail } from "react-icons/md";
 const RegisterVerifyEmail = () => {
   return (
-    <Container bg={{ base: "white", md: "transparent" }}>
+    <Container>
       <Center minH="100vh">
         <Card
           p={{
-            base: "0",
+            base: "4",
             md: "10",
           }}
+          showcard={true}
         >
           <VStack spacing={6}>
             <Icon boxSize={12} as={MdEmail} color="p.purple" />

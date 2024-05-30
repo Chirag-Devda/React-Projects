@@ -8,6 +8,8 @@ import RegisterVerifyEmail from "./pages/Auth/RegisterVerifyEmail/RegisterVerify
 import RegisterSuccess from "./pages/Auth/RegisterSuccess/RegisterSuccess.jsx";
 import ForgotPassword from "./pages/Auth/ForgotPassword/ForgotPassword.jsx";
 import ForgotPasswordSent from "./pages/Auth/ForgotPasswordSent/ForgotPasswordSent.jsx";
+import ResetPassword from "./pages/Auth/ResetPassowrd/ResetPassowrd.jsx";
+import ResetPasswordSuccess from "./pages/Auth/ResetPasswordSuccess/ResetPasswordSuccess.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,6 +50,14 @@ const router = createBrowserRouter([
   {
     path: "/forgot-success",
     element: <ForgotPasswordSent />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
+  },
+  {
+    path: "/reset-success",
+    element: <ResetPasswordSuccess />,
   },
 ]);
 function App() {

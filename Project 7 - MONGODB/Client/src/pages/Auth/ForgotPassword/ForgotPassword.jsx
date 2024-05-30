@@ -6,29 +6,28 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Checkbox,
   Button,
   FormErrorMessage,
-  HStack,
   Icon,
 } from "@chakra-ui/react";
 import { Formik, Form, Field } from "formik";
-import { object, string, ref } from "yup";
+import { object, string } from "yup";
 import { Link } from "react-router-dom";
 import Card from "../../../Components/Card";
 import { BsArrowLeft } from "react-icons/bs";
 const ForgotPassword = () => {
-  let ForgotFormValidation = object({
+  let ForgotFormValidationSchema = object({
     email: string().email("email is invalid").required("Email is required"),
   });
   return (
-    <Container bg={{ base: "white", md: "transparent" }}>
+    <Container>
       <Center minH="100vh">
         <Card
           p={{
-            base: "0",
+            base: "4",
             md: "10",
           }}
+          showcard={true}
         >
           <Stack spacing="32px">
             <Stack gap="4">
@@ -50,7 +49,7 @@ const ForgotPassword = () => {
               onSubmit={(values) => {
                 console.log(values);
               }}
-              validationSchema={ForgotFormValidation}
+              validationSchema={ForgotFormValidationSchema}
             >
               {() => (
                 <Form>

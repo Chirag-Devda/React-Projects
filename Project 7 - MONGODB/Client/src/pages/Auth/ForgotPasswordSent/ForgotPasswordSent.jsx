@@ -1,24 +1,16 @@
-import {
-  Box,
-  Button,
-  Center,
-  Container,
-  Icon,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Center, Container, Icon, Text, VStack } from "@chakra-ui/react";
 import Card from "../../../Components/Card";
 import { FaCheckCircle } from "react-icons/fa";
-import { Link } from "react-router-dom";
 const ForgotPasswordSent = () => {
   return (
-    <Container bg={{ base: "white", md: "transparent" }}>
+    <Container>
       <Center minH="100vh">
         <Card
           p={{
-            base: "0",
+            base: "4",
             md: "10",
           }}
+          showcard={true}
         >
           <VStack spacing={6}>
             <Icon as={FaCheckCircle} boxSize={12} color="green" />

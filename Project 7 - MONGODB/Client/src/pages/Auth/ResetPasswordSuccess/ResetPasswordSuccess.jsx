@@ -4,13 +4,14 @@ import {
   Center,
   Container,
   Icon,
+  Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import Card from "../../../Components/Card";
 import { FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
-const RegisterSuccess = () => {
+const ResetPasswordSuccess = () => {
   return (
     <Container>
       <Center minH="100vh">
@@ -23,16 +24,19 @@ const RegisterSuccess = () => {
         >
           <VStack spacing={6}>
             <Icon as={FaCheckCircle} boxSize={12} color="green" />
-            <Text fontWeight="medium" textStyle="h3">
-              Successfully Registration
-            </Text>
-            <Text textAlign="Center" color="black.60">
-              Hurray! You have successfully created your account. Enter the app
-              to explore all it’s features.
-            </Text>
+            <Stack spacing={4}>
+              <Text fontWeight="medium" textStyle="h3">
+                Password Reset Done
+              </Text>
+              <Text textAlign="Center" color="black.60">
+                Now you can access you account.
+              </Text>
+            </Stack>
             <Box w="full">
               <Link to="/signin">
-                <Button w="full">Enter the App</Button>
+                <Button fontWeight="light" w="full">
+                  Sign in
+                </Button>
               </Link>
             </Box>
           </VStack>
@@ -42,4 +46,4 @@ const RegisterSuccess = () => {
   );
 };
 
-export default RegisterSuccess;
+export default ResetPasswordSuccess;
