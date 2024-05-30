@@ -4,6 +4,8 @@ import Support from "./pages/Support/Support.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Signup from "./pages/Auth/Signup/Signup.jsx";
 import Signin from "./pages/Auth/Signin/Signin.jsx";
+import RegisterVerifyEmail from "./pages/Auth/RegisterVerifyEmail/RegisterVerifyEmail.jsx";
+import RegisterSuccess from "./pages/Auth/RegisterSuccess/RegisterSuccess.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
   {
     path: "/signin",
     element: <Signin />,
+  },
+  {
+    path: "/register-email-verify",
+    element: <RegisterVerifyEmail />,
+  },
+  {
+    path: "/register-success",
+    element: <RegisterSuccess />,
   },
 ]);
 function App() {
