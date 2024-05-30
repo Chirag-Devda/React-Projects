@@ -16,16 +16,11 @@ import { object, string, ref } from "yup";
 import { Link } from "react-router-dom";
 import Card from "../../../Components/Card";
 const Signin = () => {
-  let SigninFromvalidationschema = object({
-    name: string().required("Name is required"),
-    surname: string().required("Surname is required"),
-    email: string().email("email is invalid").required("Name is required"),
+  let SigninFormValidations = object({
+    email: string().email("email is invalid").required("Email is required"),
     password: string()
       .min(6, "Password must be at least 6 characters")
       .required("Password is required"),
-    repeatpassword: string()
-      .oneOf([ref("password"), null], "Password must match")
-      .required("Repeat password is requirewd"),
   });
   return (
     <Container bg={{ base: "white", md: "transparent" }}>
@@ -48,7 +43,7 @@ const Signin = () => {
               onSubmit={(values) => {
                 console.log(values);
               }}
-              validationSchema={SigninFromvalidationschema}
+              validationSchema={SigninFormValidations}
             >
               {() => (
                 <Form>
@@ -87,11 +82,9 @@ const Signin = () => {
                           Remember me
                         </Text>
                       </Checkbox>
-                      <Link to="/forget-password">
-                        <Text textStyle="p3" color="p.purple">
-                          Forget Password?
-                        </Text>
-                      </Link>
+                      <Text textStyle="p3" color="p.purple">
+                        <Link to="/forgot-password">Forget Password?</Link>
+                      </Text>
                     </HStack>
                     <Stack spacing={3}>
                       <Button type="submit">Login</Button>

@@ -20,7 +20,7 @@ const Signup = () => {
   let SignupFromvalidationschema = object({
     name: string().required("Name is required"),
     surname: string().required("Surname is required"),
-    email: string().email("email is invalid").required("Name is required"),
+    email: string().email("email is invalid").required("Email is required"),
     password: string()
       .min(6, "Password must be at least 6 characters")
       .required("Password is required"),
