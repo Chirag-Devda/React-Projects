@@ -10,23 +10,48 @@ import {
   Checkbox,
   Button,
   FormErrorMessage,
+  useToast,
 } from "@chakra-ui/react";
 import { Formik, Form, Field } from "formik";
 import { object, string, ref } from "yup";
-import { Link } from "react-router-dom";
-import Card from "../../../Components/Card";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
 
+import Card from "../../../Components/Card";
+import { signupuser } from "../../../api/query/userQuery";
+import { useState } from "react";
+
+const SignupFormvalidationschema = object({
+  name: string().required("Name is required"),
+  surname: string().required("Surname is required"),
+  email: string().email("email is invalid").required("Email is required"),
+  password: string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  repeatpassword: string()
+    .oneOf([ref("password"), null], "Password must match")
+    .required("Repeat password is requirewd"),
+});
 const Signup = () => {
-  let SignupFromvalidationschema = object({
-    name: string().required("Name is required"),
-    surname: string().required("Surname is required"),
-    email: string().email("email is invalid").required("Email is required"),
-    password: string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
-    repeatpassword: string()
-      .oneOf([ref("password"), null], "Password must match")
-      .required("Repeat password is requirewd"),
+  const [email, setemail] = useState("");
+  const navigate = useNavigate();
+  const toast = useToast();
+  const { mutate, isLoading } = useMutation({
+    mutationKey: ["signup"],
+    mutationFn: signupuser,
+    onSuccess: () => {
+      navigate("/register-email-verify", {
+        state: email,
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Signup Error",
+        description: error.message,
+        status: "error",
+        isClosable: true,
+      });
+    },
   });
   return (
     <Container bg={{ base: "white", md: "transparent" }}>
@@ -50,9 +75,15 @@ const Signup = () => {
                 repeatpassword: "",
               }}
               onSubmit={(values) => {
-                console.log(values);
+                mutate({
+                  password: values.password,
+                  email: values.email,
+                  lastName: values.surname,
+                  firstName: values.name,
+                });
+                setemail(values.email);
               }}
-              validationSchema={SignupFromvalidationschema}
+              validationSchema={SignupFormvalidationschema}
             >
               {() => (
                 <Form>
@@ -137,7 +168,9 @@ const Signup = () => {
                         Terms & Conditions.
                       </Text>
                     </Checkbox>
-                    <Button type="submit">Create Account</Button>
+                    <Button isLoading={isLoading} type="submit">
+                      Create Account
+                    </Button>
                     <Text textStyle="p3" textAlign="center">
                       Already have an account?
                       <Link to="/signin">

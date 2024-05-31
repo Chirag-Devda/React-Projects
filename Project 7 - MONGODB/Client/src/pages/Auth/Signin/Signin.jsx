@@ -10,7 +10,6 @@ import {
   Button,
   FormErrorMessage,
   HStack,
-  Box,
 } from "@chakra-ui/react";
 import { Formik, Form, Field } from "formik";
 import { object, string, ref } from "yup";

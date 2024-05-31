@@ -12,3 +12,16 @@ export const signinuser = async ({ password, email }) => {
     throw Error(error.response.data.message);
   }
 };
+export const signupuser = async ({ password, email, lastName, firstName }) => {
+  try {
+    const { data } = await Axios.post(`${USER_URL}/signup`, {
+      password,
+      email,
+      lastName,
+      firstName,
+    });
+    return data;
+  } catch (error) {
+    throw Error(error.response.data.message);
+  }
+};
