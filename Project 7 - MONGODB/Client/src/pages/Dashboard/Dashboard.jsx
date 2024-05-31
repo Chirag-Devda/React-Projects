@@ -8,15 +8,12 @@ import { fetchExample } from "../../api/query/examplequery";
 import { useQuery } from "react-query";
 
 const Dashboard = () => {
-  let { isLoading, isFetching } = useQuery({
+  let { isLoading } = useQuery({
     queryKey: ["Example"],
     queryFn: fetchExample,
   });
   if (isLoading) {
     return <Box>Loading....</Box>;
-  }
-  if (isFetching) {
-    return <Box>Ara Hai Bhai Sabar toh kare na mere jaan</Box>;
   }
 
   return (

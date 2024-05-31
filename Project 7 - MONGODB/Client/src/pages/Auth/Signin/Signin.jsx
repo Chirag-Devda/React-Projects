@@ -10,24 +10,46 @@ import {
   Button,
   FormErrorMessage,
   HStack,
+  Box,
 } from "@chakra-ui/react";
 import { Formik, Form, Field } from "formik";
 import { object, string, ref } from "yup";
 import { Link } from "react-router-dom";
 import Card from "../../../Components/Card";
+import { useMutation } from "react-query";
+import { signinuser } from "../../../api/query/userQuery";
+import { useToast } from "@chakra-ui/react";
+const SigninFormValidations = object({
+  email: string().email("email is invalid").required("Email is required"),
+  password: string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+});
+
 const Signin = () => {
-  let SigninFormValidations = object({
-    email: string().email("email is invalid").required("Email is required"),
-    password: string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
+  // for GET request we use useQuery and for post , put , patch , delete requests we used useMutaton HOOK
+  const toast = useToast();
+
+  const { mutate, isLoading, error, isError } = useMutation({
+    mutationKey: ["signin"],
+    mutationFn: signinuser,
+    onError: (error) => {
+      toast({
+        title: "Signin Error",
+        description: error.message,
+        duration: 1000,
+        isClosable: true,
+        status: "error",
+      });
+    },
   });
+
   return (
     <Container bg={{ base: "white", md: "transparent" }}>
       <Center minH="100vh">
         <Card>
           <Stack spacing={10}>
-            <Stack gap="18px">
+            <Stack gap="1.125rem">
               <Text color="p.black" textStyle="h1">
                 Welcome to Crypto App
               </Text>
@@ -41,7 +63,7 @@ const Signin = () => {
                 password: "",
               }}
               onSubmit={(values) => {
-                console.log(values);
+                mutate(values);
               }}
               validationSchema={SigninFormValidations}
             >
@@ -87,7 +109,9 @@ const Signin = () => {
                       </Text>
                     </HStack>
                     <Stack spacing={3}>
-                      <Button type="submit">Login</Button>
+                      <Button isLoading={isLoading} type="submit">
+                        Login
+                      </Button>
                       <Link to="/signup">
                         <Button variant="outline" width="full">
                           Create Account

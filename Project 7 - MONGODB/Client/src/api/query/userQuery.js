@@ -1,0 +1,14 @@
+let USER_URL = "/user";
+import Axios from "../Axios";
+
+export const signinuser = async ({ password, email }) => {
+  try {
+    const { data } = await Axios.post(`${USER_URL}/signin`, {
+      password,
+      email,
+    });
+    return data;
+  } catch (error) {
+    throw Error(error.response.data.message);
+  }
+};
