@@ -25,3 +25,13 @@ export const signupuser = async ({ password, email, lastName, firstName }) => {
     throw Error(error.response.data.message);
   }
 };
+export const sendverificationmail = async ({ email }) => {
+  try {
+    const { data } = await Axios.post(`${USER_URL}/send-verification-mail`, {
+      email,
+    });
+    return data;
+  } catch (error) {
+    throw Error(error.response.data.message);
+  }
+};

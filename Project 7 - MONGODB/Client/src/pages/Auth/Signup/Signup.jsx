@@ -40,9 +40,11 @@ const Signup = () => {
     mutationKey: ["signup"],
     mutationFn: signupuser,
     onSuccess: () => {
-      navigate("/register-email-verify", {
-        state: email,
-      });
+      if (email !== "") {
+        navigate("/register-email-verify", {
+          state: { email: email },
+        });
+      }
     },
     onError: (error) => {
       toast({
@@ -53,6 +55,7 @@ const Signup = () => {
       });
     },
   });
+
   return (
     <Container bg={{ base: "white", md: "transparent" }}>
       <Center minH="100vh">
@@ -75,13 +78,13 @@ const Signup = () => {
                 repeatpassword: "",
               }}
               onSubmit={(values) => {
+                setemail(values.email);
                 mutate({
                   password: values.password,
                   email: values.email,
                   lastName: values.surname,
                   firstName: values.name,
                 });
-                setemail(values.email);
               }}
               validationSchema={SignupFormvalidationschema}
             >

@@ -58,7 +58,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"email\":\"test@dosomecoding.com\",\n    \"password\":\"anshuraj\"\n}",
+          "raw": "{\n    \"email\":\"test@dosomecoding.com\"\n,}",
           "options": {
             "raw": {
               "language": "json"
@@ -66,9 +66,9 @@
           }
         },
         "url": {
-          "raw": "{{url}}/user/signin",
+          "raw": "{{url}}/user/send-verification-mail",
           "host": ["{{url}}"],
-          "path": ["user", "signin"]
+          "path": ["user", "send-verification-mail"]
         }
       },
       "response": []
