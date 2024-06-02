@@ -8,20 +8,60 @@ import {
   Input,
   Button,
   FormErrorMessage,
+  useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import { Formik, Form, Field } from "formik";
 import { object, string, ref } from "yup";
 import Card from "../../../Components/Card";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useMutation, useQuery } from "react-query";
+import { verfiyForgottokensend } from "../../../api/query/userQuery";
 
+const ResetPasswordFormvalidationschema = object({
+  password: string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  repeatnewpassword: string()
+    .oneOf([ref("password"), null], "Password must match")
+    .required("Repeat password is requirewd"),
+});
 const ResetPassword = () => {
-  let ResetPasswordFormvalidationschema = object({
-    password: string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
-    repeatnewpassword: string()
-      .oneOf([ref("password"), null], "Password must match")
-      .required("Repeat password is requirewd"),
+  const navigate = useNavigate();
+  const toast = useToast();
+  const { token } = useParams();
+  const { mutate, isLoading } = useMutation({
+    mutationKey: ["ResetPassword"],
+    mutationFn: verfiyForgottokensend,
+    onSuccess: (data) => {
+      console.log(data);
+      navigate("/reset-success");
+    },
+    onError: (error) => {
+      toast({
+        title: "Signup Error",
+        description: error.message,
+        status: "error",
+        isClosable: true,
+      });
+      navigate("/signup");
+    },
+    enabled: !!token,
   });
+  if (isLoading) {
+    return (
+      <Center minH="100vh">
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+      </Center>
+    );
+  }
   return (
     <Container>
       <Center minH="100vh">
@@ -47,7 +87,10 @@ const ResetPassword = () => {
                 repeatnewpassword: "",
               }}
               onSubmit={(values) => {
-                console.log(values);
+                mutate({
+                  token: token,
+                  password: values.password,
+                });
               }}
               validationSchema={ResetPasswordFormvalidationschema}
             >

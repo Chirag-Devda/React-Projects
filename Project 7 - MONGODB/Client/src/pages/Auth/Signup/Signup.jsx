@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { Formik, Form, Field } from "formik";
 import { object, string, ref } from "yup";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "react-query";
 
 import Card from "../../../Components/Card";
@@ -35,16 +35,13 @@ const SignupFormvalidationschema = object({
 const Signup = () => {
   const [email, setemail] = useState("");
   const navigate = useNavigate();
+  const params = useParams();
   const toast = useToast();
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isSuccess, isLoading } = useMutation({
     mutationKey: ["signup"],
     mutationFn: signupuser,
     onSuccess: () => {
-      if (email !== "") {
-        navigate("/register-email-verify", {
-          state: { email: email },
-        });
-      }
+      navigate(`/register-email-verify/${email}`);
     },
     onError: (error) => {
       toast({
@@ -78,7 +75,7 @@ const Signup = () => {
                 repeatpassword: "",
               }}
               onSubmit={(values) => {
-                setemail(values.email);
+                setemail((prev) => (prev = values.email));
                 mutate({
                   password: values.password,
                   email: values.email,

@@ -1,7 +1,19 @@
-import { Center, Container, Icon, Text, VStack } from "@chakra-ui/react";
+import {
+  Center,
+  Container,
+  Icon,
+  Text,
+  VStack,
+  useToast,
+} from "@chakra-ui/react";
 import Card from "../../../Components/Card";
 import { FaCheckCircle } from "react-icons/fa";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "react-query";
 const ForgotPasswordSent = () => {
+  const params = useParams();
+  const email = params.email ?? "";
+
   return (
     <Container>
       <Center minH="100vh">
@@ -21,7 +33,7 @@ const ForgotPasswordSent = () => {
               We have sent instructions on how to reset your password to
               <Text color="p.black" as="b">
                 {" "}
-                jenny.wilson@gmail.com.
+                {email}
               </Text>{" "}
               Please follow the instructions from the email.
             </Text>

@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import Card from "../../../Components/Card";
 import { MdEmail } from "react-icons/md";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useMutation } from "react-query";
 import { sendverificationmail } from "../../../api/query/userQuery";
 import { useEffect } from "react";
@@ -19,16 +19,15 @@ import { useEffect } from "react";
 //
 
 const RegisterVerifyEmail = () => {
-  const location = useLocation();
-  console.log(location);
-  const email = location.state.email ?? "";
-
+  const params = useParams();
+  const email = params.email ?? "";
+  console.log({ email });
   if (email == "") {
     return <Center minH="100vh">Invalid email</Center>;
   }
 
   const toast = useToast();
-  const { mutate, isSuccess, isLoading } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationKey: ["Send-Verification-Mail"],
     mutationFn: sendverificationmail,
     onSettled: (data) => {

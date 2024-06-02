@@ -9,15 +9,41 @@ import {
   Button,
   FormErrorMessage,
   Icon,
+  useToast,
 } from "@chakra-ui/react";
 import { Formik, Form, Field } from "formik";
 import { object, string } from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Card from "../../../Components/Card";
 import { BsArrowLeft } from "react-icons/bs";
+import { useState } from "react";
+import { useMutation } from "react-query";
+import { sendForgotmail } from "../../../api/query/userQuery";
+const ForgotFormValidationSchema = object({
+  email: string().email("email is invalid").required("Email is required"),
+});
+0;
 const ForgotPassword = () => {
-  let ForgotFormValidationSchema = object({
-    email: string().email("email is invalid").required("Email is required"),
+  const [email, setemail] = useState("");
+  const navigate = useNavigate();
+  const toast = useToast();
+  const { mutate, isSuccess, isLoading } = useMutation({
+    mutationKey: ["Forgot-Password"],
+    mutationFn: sendForgotmail,
+    onSuccess: (data) => {
+      console.log(data);
+      if (email) {
+        navigate(`/forgot-success/${email}`);
+      }
+    },
+    onError: (error) => {
+      toast({
+        title: "Signup Error",
+        description: error.message,
+        status: "error",
+        isClosable: true,
+      });
+    },
   });
   return (
     <Container>
@@ -47,7 +73,8 @@ const ForgotPassword = () => {
                 email: "",
               }}
               onSubmit={(values) => {
-                console.log(values);
+                setemail((prev) => (prev = values.email));
+                mutate(values);
               }}
               validationSchema={ForgotFormValidationSchema}
             >
@@ -68,7 +95,12 @@ const ForgotPassword = () => {
                         </FormControl>
                       )}
                     </Field>
-                    <Button type="submit" variant="outline" width="full">
+                    <Button
+                      isLoading={isLoading}
+                      type="submit"
+                      variant="outline"
+                      width="full"
+                    >
                       Reset Password
                     </Button>
                   </Stack>

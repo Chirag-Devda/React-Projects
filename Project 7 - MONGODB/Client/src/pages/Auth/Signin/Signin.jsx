@@ -32,6 +32,9 @@ const Signin = () => {
   const { mutate, isLoading, error, isError } = useMutation({
     mutationKey: ["signin"],
     mutationFn: signinuser,
+    onSuccess: (data) => {
+      console.log(data);
+    },
     onError: (error) => {
       toast({
         title: "Signin Error",
