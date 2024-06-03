@@ -27,7 +27,7 @@ const ForgotPassword = () => {
   const [email, setemail] = useState("");
   const navigate = useNavigate();
   const toast = useToast();
-  const { mutate, isSuccess, isLoading } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationKey: ["Forgot-Password"],
     mutationFn: sendForgotmail,
     onSuccess: (data) => {

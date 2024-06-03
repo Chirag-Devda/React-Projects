@@ -15,7 +15,6 @@ const Dashboard = () => {
   if (isLoading) {
     return <Box>Loading....</Box>;
   }
-
   return (
     <Dashboardlayout title="Dashboard">
       <Grid
