@@ -34,7 +34,7 @@ const Signin = () => {
   const { mutate, isLoading } = useMutation({
     mutationKey: ["signin"],
     mutationFn: signinuser,
-    onSuccess: (data) => {
+    onSettled: (data) => {
       const { token } = data;
       if (token) {
         login(token);
