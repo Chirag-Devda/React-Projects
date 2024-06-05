@@ -40,7 +40,7 @@ const RegisterVerifyEmail = () => {
         isClosable: true,
       });
     },
-    enabled: !!Email,
+    enabled: !!SignupEmail,
   });
 
   useEffect(() => {
