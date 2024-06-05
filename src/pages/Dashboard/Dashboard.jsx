@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Spinner, Center, Grid, GridItem } from "@chakra-ui/react";
 import Dashboardlayout from "../../Components/Dashboardlayout";
 import PortfolioSection from "./Components/PortfolioSection";
 import PricingSection from "./Components/PricingSection";
@@ -13,7 +13,17 @@ const Dashboard = () => {
     queryFn: fetchExample,
   });
   if (isLoading) {
-    return <Box>Loading....</Box>;
+    return (
+      <Center minH="100vh">
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+      </Center>
+    );
   }
   return (
     <Dashboardlayout title="Dashboard">
