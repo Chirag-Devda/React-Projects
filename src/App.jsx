@@ -61,7 +61,7 @@ function App() {
       ),
     },
     {
-      path: "/register-email-verify/:email",
+      path: "/register-email-verify",
       element: (
         <AlreadySigninRoute>
           <RegisterVerifyEmail />
@@ -108,8 +108,7 @@ function App() {
         </AlreadySigninRoute>
       ),
     },
-  ]);
-  // Create a client
+  ]); // Create a client
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
