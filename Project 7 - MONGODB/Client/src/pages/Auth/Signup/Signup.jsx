@@ -14,12 +14,12 @@ import {
 } from "@chakra-ui/react";
 import { Formik, Form, Field } from "formik";
 import { object, string, ref } from "yup";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
-
 import Card from "../../../Components/Card";
 import { signupuser } from "../../../api/query/userQuery";
-import { useState } from "react";
+import useAuth from "../../../hooks/useAuth";
+import { useEffect } from "react";
 
 const SignupFormvalidationschema = object({
   name: string().required("Name is required"),
@@ -33,15 +33,18 @@ const SignupFormvalidationschema = object({
     .required("Repeat password is requirewd"),
 });
 const Signup = () => {
-  const [email, setemail] = useState("");
+  useEffect(() => {
+    localStorage.removeItem("email");
+  }, []);
+
   const navigate = useNavigate();
-  const params = useParams();
   const toast = useToast();
-  const { mutate, isSuccess, isLoading } = useMutation({
+  const { UpdateEmail } = useAuth();
+  const { mutate, isLoading } = useMutation({
     mutationKey: ["signup"],
     mutationFn: signupuser,
     onSuccess: () => {
-      navigate(`/register-email-verify/${email}`);
+      navigate(`/register-email-verify`);
     },
     onError: (error) => {
       toast({
@@ -68,14 +71,14 @@ const Signup = () => {
             </Stack>
             <Formik
               initialValues={{
-                name: "",
-                surname: "",
-                email: "",
-                password: "",
-                repeatpassword: "",
+                name: "chirag",
+                surname: "devda",
+                email: "email6@gmail.com",
+                password: "111111",
+                repeatpassword: "111111",
               }}
               onSubmit={(values) => {
-                setemail((prev) => (prev = values.email));
+                UpdateEmail(values.email);
                 mutate({
                   password: values.password,
                   email: values.email,

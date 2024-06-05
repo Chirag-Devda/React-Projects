@@ -4,33 +4,32 @@ import {
   Center,
   Container,
   Icon,
-  Spinner,
   Text,
   VStack,
   useToast,
 } from "@chakra-ui/react";
 import Card from "../../../Components/Card";
 import { MdEmail } from "react-icons/md";
-import { useParams } from "react-router-dom";
 import { useMutation } from "react-query";
 import { sendverificationmail } from "../../../api/query/userQuery";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import useAuth from "../../../hooks/useAuth";
 
 //
 
 const RegisterVerifyEmail = () => {
-  const params = useParams();
-  const email = params.email ?? "";
-  console.log({ email });
-  if (email == "") {
+  const { Email } = useAuth();
+  const [SignupEmail, setSignupEmail] = useState("");
+  const toast = useToast();
+
+  if (Email == "") {
     return <Center minH="100vh">Invalid email</Center>;
   }
 
-  const toast = useToast();
   const { mutate, isLoading } = useMutation({
     mutationKey: ["Send-Verification-Mail"],
     mutationFn: sendverificationmail,
-    onSettled: (data) => {
+    onSuccess: (data) => {
       console.log(data);
     },
     onError: (error) => {
@@ -41,12 +40,18 @@ const RegisterVerifyEmail = () => {
         isClosable: true,
       });
     },
-    enabled: !!email,
+    enabled: !!Email,
   });
-  useEffect(() => {
-    mutate({ email });
-  }, [email]);
 
+  useEffect(() => {
+    const data = localStorage.getItem("email");
+    if (data) {
+      setSignupEmail(data);
+      mutate({ email: data });
+    } else {
+      localStorage.setItem("email", Email);
+    }
+  }, []);
   return (
     <Container>
       <Center minH="100vh">
@@ -65,14 +70,14 @@ const RegisterVerifyEmail = () => {
             <Text textAlign="Center" color="black.60">
               We have sent you an email verification to
               <Text color="p.black" as="b">
-                {email}
+                {SignupEmail}
               </Text>
               If you didn’t receive it, click the button below.
             </Text>
             <Button
               isLoading={isLoading}
               onClick={() => {
-                mutate({ email });
+                mutate({ email: SignupEmail });
               }}
               w="full"
               variant="outline"

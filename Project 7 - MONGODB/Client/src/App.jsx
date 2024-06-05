@@ -61,7 +61,7 @@ function App() {
       ),
     },
     {
-      path: "/register-email-verify/:email",
+      path: "/register-email-verify",
       element: (
         <AlreadySigninRoute>
           <RegisterVerifyEmail />

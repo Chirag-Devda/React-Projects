@@ -7,6 +7,10 @@ export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [cookie, setCookie, removeCookie] = useCookies(["jwt"]);
+  const [Email, setEmail] = useState(null);
+  const UpdateEmail = (emailstr) => {
+    setEmail(emailstr);
+  };
 
   const login = (tokenStr) => {
     if (tokenStr) {
@@ -48,6 +52,8 @@ export default function AuthProvider({ children }) {
         token,
         login,
         logout,
+        Email,
+        UpdateEmail,
       }}
     >
       {children}
