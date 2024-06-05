@@ -69,9 +69,15 @@ const RegisterVerifyEmail = () => {
             </Text>
             <Text textAlign="Center" color="black.60">
               We have sent you an email verification to{" "}
-              <Text color="p.black" as="b">
-                {SignupEmail ? { SignupEmail } : { Email }}
-              </Text>
+              {SignupEmail ? (
+                <Text color="p.black" as="b">
+                  {SignupEmail}
+                </Text>
+              ) : (
+                <Text color="p.black" as="b">
+                  {Email}
+                </Text>
+              )}
               If you didn’t receive it, click the button below.
             </Text>
             <Button
