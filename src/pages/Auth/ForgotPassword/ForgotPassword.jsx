@@ -31,9 +31,18 @@ const ForgotPassword = () => {
     mutationKey: ["Forgot-Password"],
     mutationFn: sendForgotmail,
     onSuccess: (data) => {
-      console.log(data);
       if (email) {
-        navigate(`/forgot-success/${email}`);
+        navigate(`/forgot-success/${email}`, {
+          state: data,
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Click again to Reset password",
+          status: "error",
+          isClosable: true,
+          duration: "1000",
+        });
       }
     },
     onError: (error) => {

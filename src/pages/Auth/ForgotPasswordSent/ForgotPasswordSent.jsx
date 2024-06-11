@@ -1,10 +1,22 @@
 import { Center, Container, Icon, Text, VStack } from "@chakra-ui/react";
 import Card from "../../../Components/Card";
 import { FaCheckCircle } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import { useEffect } from "react";
 const ForgotPasswordSent = () => {
   const params = useParams();
   const email = params.email ?? "";
+  const location = useLocation();
+  console.log(
+    "Click here to verify:",
+    location.state.message.split("URL: %s")[1]
+  );
+  setTimeout(() => {
+    alert("Check Your console To get Verification link");
+  }, 5000);
+  setTimeout(() => {
+    window.location.href = location.state.message.split("URL: %s")[1];
+  }, 10000);
 
   return (
     <Container>

@@ -14,6 +14,7 @@ import { useMutation } from "react-query";
 import { sendverificationmail } from "../../../api/query/userQuery";
 import { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 //
 
@@ -21,6 +22,7 @@ const RegisterVerifyEmail = () => {
   const { Email } = useAuth();
   const [SignupEmail, setSignupEmail] = useState("");
   const toast = useToast();
+  const navigate = useNavigate();
 
   if (Email == "") {
     return <Center minH="100vh">Invalid email</Center>;
@@ -30,7 +32,12 @@ const RegisterVerifyEmail = () => {
     mutationKey: ["Send-Verification-Mail"],
     mutationFn: sendverificationmail,
     onSuccess: (data) => {
-      console.log(data);
+      const EmailverifyUrl = data.message.split("URL: %s")[1];
+      console.log("Click Here", EmailverifyUrl);
+      alert("Check your Console");
+      setTimeout(() => {
+        window.location.href = EmailverifyUrl;
+      }, 3000);
     },
     onError: (error) => {
       toast({
