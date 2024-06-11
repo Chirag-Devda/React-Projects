@@ -71,11 +71,11 @@ const Signup = () => {
             </Stack>
             <Formik
               initialValues={{
-                name: "chirag",
-                surname: "devda",
-                email: "email6@gmail.com",
-                password: "111111",
-                repeatpassword: "111111",
+                name: "",
+                surname: "",
+                email: "",
+                password: "",
+                repeatpassword: "",
               }}
               onSubmit={(values) => {
                 UpdateEmail(values.email);
