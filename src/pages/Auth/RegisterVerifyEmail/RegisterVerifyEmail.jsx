@@ -46,6 +46,7 @@ const RegisterVerifyEmail = () => {
         status: "error",
         isClosable: true,
       });
+      window.location.reload();
     },
     enabled: !!SignupEmail,
   });
