@@ -1,16 +1,24 @@
-<p>Project 1 - Brand Page</p>
-<br>
-<p>Project 2 - Contact Form</p>
-<br>
-<p>Project 3 - Dice Game</p>
-<br>
-<div><p>Project 4 - Foody Zone - Food Deleviery</p> 
-<b>click here to visit foodyzone</b> - <a href="https://foodyzone-rho.vercel.app/">Foody Zone</a></div>
-<br>
-<p>Project 5 - Locakvault - Password Manager</p>
-<br>
-<p>Project 5 - Locakvault - Password Manager With MONGODB </p>
-<br>
-<p>Project 5 - Contact App - Contact App</p>
-<br>
-<p>Project 5 - Contact App - Contact App With MONGODB </p>
+# Create Backend from scratch
+
+### 1. Create a Backend folder
+
+### 2. In backend folder write command (npm init -y ,npm i express@4 , npm i )
+
+### 3. Create server.js and make localhost by express Hello world template
+
+```
+Run this for server.js
+
+node --watch server.js
+```
+
+### 4. create .env file to store private information
+
+### 5. install npm i dotenv for .env file and import require thing from website
+
+```
+Copy this :
+
+require('dotenv').config()
+console.log(process.env)
+```
