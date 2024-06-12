@@ -33,7 +33,7 @@ const Cart = () => {
 
           return {
             ...item,
-            quantity: item.quantity + 1,
+            quantity: quantity + 1,
             price: item.price + filterDefaultPrice,
           };
         }
@@ -66,6 +66,7 @@ const Cart = () => {
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(value.mergedCart));
   }, [value.mergedCart]);
+  console.log(value.mergedCart);
   return (
     <MyCartContainer>
       <Container>

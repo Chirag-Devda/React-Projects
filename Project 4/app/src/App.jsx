@@ -33,7 +33,7 @@ const App = () => {
   const [filterdata, setfilterdata] = useState(null);
   const [Searchbtn, setSearchbtn] = useState(null);
   const [MyCartBtn, setMyCartBtn] = useState(false);
-
+  console.log(data);
   useEffect(() => {
     const Fetchedata = async () => {
       setloading(true);

@@ -28,7 +28,7 @@ const SearchResult = ({ data, MyCartBtn }) => {
   useEffect(() => {
     let mergedCartObj = cart.reduce((acc, item) => {
       if (!acc[item.name]) {
-        acc[item.name] = { ...item, quantity: 1 };
+        acc[item.name] = { ...item };
       } else {
         acc[item.name].quantity++;
         acc[item.name].price += item.price;

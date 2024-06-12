@@ -18,6 +18,7 @@ app.get("/", (req, res) => {
       text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
       image: "/images/egg.png",
       type: "breakfast",
+      quantity: 1,
     },
     {
       name: "RAMEN",
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
       text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
       image: "/images/ramen.png",
       type: "lunch",
+      quantity: 1,
     },
     {
       name: "GRILLED CHICKEN",
@@ -32,6 +34,7 @@ app.get("/", (req, res) => {
       text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
       image: "/images/chicken.png",
       type: "dinner",
+      quantity: 1,
     },
     {
       name: "CAKE",
@@ -39,6 +42,7 @@ app.get("/", (req, res) => {
       text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
       image: "/images/cake.png",
       type: "breakfast",
+      quantity: 1,
     },
     {
       name: "BURGER",
@@ -46,6 +50,7 @@ app.get("/", (req, res) => {
       text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
       image: "/images/burger.png",
       type: "lunch",
+      quantity: 1,
     },
     {
       name: "PANCAKE",
@@ -53,6 +58,7 @@ app.get("/", (req, res) => {
       text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
       image: "/images/pancake.png",
       type: "dinner",
+      quantity: 1,
     },
   ];
 
