@@ -3,9 +3,7 @@ import styled, { css } from "styled-components";
 import { useState } from "react";
 import SearchResult from "./Components/SearchResults/SearchResult";
 import { dataItems } from "./Context/data";
-import { CartItems } from "./Context/Cart";
-import { useContext } from "react";
-export let Base_Url = "http://localhost:9000";
+export let Base_Url = "https://foody-zone-server.onrender.com";
 
 const ButtonsArray = [
   {
