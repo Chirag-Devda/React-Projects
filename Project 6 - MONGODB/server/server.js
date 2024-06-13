@@ -1,18 +1,18 @@
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
+dotenv.config();
 const cors = require("cors");
-const port = 3000;
+const port = process.env.PORT;
 const { MongoClient } = require("mongodb");
 const bodyParser = require("body-parser");
 
 // Midelware
-dotenv.config();
 app.use(bodyParser.json());
 app.use(cors());
 
 // Connection URL
-const url = "mongodb://localhost:27017";
+const url = process.env.MONGODB_URL;
 const client = new MongoClient(url);
 
 // Database Name
