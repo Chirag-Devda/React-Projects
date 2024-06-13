@@ -3,15 +3,16 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const { MongoClient } = require("mongodb");
 const bodyParser = require("body-parser");
+dotenv.config();
 
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT;
 app.use(bodyParser.json());
 app.use(cors());
 
-dotenv.config();
 // Connection URL
 const url = process.env.MONGODB_URL;
+console.log(process.env.MONGODB_URL);
 
 const client = new MongoClient(url);
 
@@ -44,6 +45,6 @@ app.delete("/", async (req, res) => {
   res.send({ success: true, result: findResult });
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port http://localhost:${PORT}`);
 });
