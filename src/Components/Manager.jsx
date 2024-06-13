@@ -12,7 +12,7 @@ const Manager = () => {
   const [passwordsArray, setpasswordsArray] = useState([]);
 
   const getpassword = async () => {
-    let req = await fetch("http://localhost:3000/");
+    let req = await fetch(import.meta.env.VITE_BASE_URL);
     let passwords = await req.json();
     console.log(passwords);
     setpasswordsArray(passwords);
@@ -27,7 +27,7 @@ const Manager = () => {
       setpasswordsArray([...passwordsArray, { ...form, id: uuidv4() }]);
 
       if (form.id) {
-        await fetch("http://localhost:3000/", {
+        await fetch(import.meta.env.VITE_BASE_URL, {
           method: "DELETE",
           headers: {
             Accept: "application/json",
@@ -37,7 +37,7 @@ const Manager = () => {
           //make sure to serialize your JSON body
           body: JSON.stringify({ id: form.id }),
         });
-        await fetch("http://localhost:3000/", {
+        await fetch(import.meta.env.VITE_BASE_URL, {
           method: "post",
           headers: {
             "Content-Type": "application/json",
@@ -48,7 +48,7 @@ const Manager = () => {
         });
       } else {
         console.log("i dont have id ");
-        await fetch("http://localhost:3000/", {
+        await fetch(import.meta.env.VITE_BASE_URL, {
           method: "post",
           headers: {
             "Content-Type": "application/json",
@@ -123,7 +123,7 @@ const Manager = () => {
         progress: undefined,
         theme: "dark",
       });
-      await fetch("http://localhost:3000/", {
+      await fetch(import.meta.env.VITE_BASE_URL, {
         method: "DELETE",
         headers: {
           Accept: "application/json",
