@@ -91,6 +91,7 @@ const App = () => {
             </div>
             <div className="search">
               <input
+                name="search"
                 onChange={handlesearch}
                 type="search"
                 placeholder="Search foods"
