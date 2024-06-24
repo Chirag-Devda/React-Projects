@@ -11,6 +11,6 @@
 <br>
 <p>Project 5 - Locakvault - Password Manager With MONGODB </p>
 <br>
-<p>Project 5 - Contact App - Contact App</p>
+<p>Project 6 - Contact App - Contact App</p>
 <br>
-<p>Project 5 - Contact App - Contact App With MONGODB </p>
+<p>Project 6 - Contact App - Contact App With MONGODB </p>
