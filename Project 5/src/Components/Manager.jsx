@@ -135,6 +135,7 @@ const Manager = () => {
 
         <div className="flex w-full flex-col items-center gap-5  py-8 text-white md:gap-8">
           <input
+            autoComplete="on"
             placeholder="Enter your Url"
             className=" w-full rounded-full px-4 text-black placeholder:text-black"
             type="text"
@@ -152,6 +153,7 @@ const Manager = () => {
               required
               value={form.username}
               name="username"
+              autoComplete="on"
             />
             <div className="relative">
               <input
@@ -163,6 +165,7 @@ const Manager = () => {
                 value={form.password}
                 ref={passwordRef}
                 name="password"
+                autoComplete="on"
               />
               <div className="absolute right-[3px] top-0 cursor-pointer p-0.5">
                 <img
