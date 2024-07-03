@@ -1,5 +1,3 @@
-import React from "react";
-
 const Navbar = () => {
   return (
     <nav className="Nav-Container flex flex-col h-fit sm:p-0 p-[14px] gap-5 sm:gap-0 sm:flex-row items-center max-w-7xl m-auto sm:justify-around sm:h-[72px] ">
