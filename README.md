@@ -12,6 +12,8 @@ This project is a practice application focused on requesting server-side user au
 
 - **Responsive Design**: The application is fully responsive, ensuring a seamless experience across all devices.
 
+- **Chakra UI**: The project is styled using Chakra UI, providing a consistent and attractive design system.
+
 ---
 
 - Deployed APP <a href="https://coinhub-crypto-djml8rv17-chirag-devdas-projects.vercel.app/">Click Here to visit</a>
