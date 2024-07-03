@@ -1,5 +1,7 @@
-<p>Project 1 - Brand Page</p>
-<br>
+## Project 1 : Brand Page
+
+- This is basic project for practing and familiar with react.js components and syntax
+
 <p>Project 2 - Contact Form</p>
 <br>
 <p>Project 3 - Dice Game</p>
@@ -14,3 +16,4 @@
 <p>Project 6 - Contact App - Contact App</p>
 <br>
 <p>Project 6 - Contact App - Contact App With MONGODB </p>
+<br>
