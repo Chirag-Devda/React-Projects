@@ -1,10 +1,10 @@
-import { Layout } from "../../components";
-import useData from "../../hooks/useData";
+import { Filter, HeroSection, Layout } from "../../components";
 
 const Home = () => {
   return (
     <Layout>
-      <div>Home</div>
+      <HeroSection />
+      <Filter />
     </Layout>
   );
 };
