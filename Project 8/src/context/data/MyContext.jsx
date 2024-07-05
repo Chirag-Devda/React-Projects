@@ -4,6 +4,9 @@ export const MyContext = createContext();
 
 export default function MyStateProvider({ children }) {
   const [mode, setMode] = useState("light");
+  const [open, setOpen] = useState(false);
+  const openDrawer = () => setOpen(true);
+  const closeDrawer = () => setOpen(false);
 
   const toggleMode = () => {
     if (mode === "light") {
@@ -16,7 +19,9 @@ export default function MyStateProvider({ children }) {
   };
 
   return (
-    <MyContext.Provider value={{ mode, toggleMode }}>
+    <MyContext.Provider
+      value={{ mode, toggleMode, open, openDrawer, closeDrawer }}
+    >
       {children}
     </MyContext.Provider>
   );
