@@ -2,6 +2,8 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Cart, Dashboard, Home, NoPage, Order } from "./pages";
+import Signup from "./pages/Auth/SignUp";
+import Login from "./pages/Auth/Login";
 function App() {
   const router = createBrowserRouter([
     {
@@ -23,6 +25,14 @@ function App() {
     {
       path: "/*",
       element: <NoPage />,
+    },
+    {
+      path: "/signup",
+      element: <Signup />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
     },
   ]);
   return (

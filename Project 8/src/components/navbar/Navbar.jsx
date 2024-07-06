@@ -23,7 +23,10 @@ const Navbar = () => {
             size={25}
             className="block cursor-pointer pt-1 md:hidden"
           />
-          <h1 className="cursor-pointer text-[25px] font-bold">LootLo</h1>
+          <Link to="/">
+            {" "}
+            <h1 className="cursor-pointer text-[25px] font-bold">LootLo</h1>
+          </Link>
         </div>
         <ul className="flex w-fit items-center justify-between space-x-10">
           <li className="hidden hover:cursor-pointer md:block">All Products</li>
