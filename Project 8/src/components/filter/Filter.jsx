@@ -6,7 +6,7 @@ const Filter = () => {
   return (
     <div>
       <div
-        className={`max-w-7xl mx-auto mt-5  rounded-lg p-6 flex flex-col gap-5 ${
+        className={`max-w-7xl mx-auto mt-5 shadow-lg rounded-lg p-6 flex flex-col gap-5 ${
           mode === "dark" ? "bg-[#282c34] text-white" : "bg-blue-gray-100"
         }`}
       >
@@ -21,35 +21,49 @@ const Filter = () => {
           <FaMagnifyingGlass className="absolute inset-2" size={20} />
         </div>
         <div className="flex justify-between font-bold text-[17px]">
-          <p>Filter</p>
-          <p>Reset Filter</p>
+          <p className="text-[18px] ">Filter</p>
+          <p
+            className={`cursor-pointer rounded-lg p-2 text-[18px] ${
+              mode === "dark"
+                ? "hover:scale-[1.2] hover:bg-blue-gray-300 hover:duration-500"
+                : "hover:scale-[1.2] hover:bg-white  hover:duration-500"
+            }`}
+          >
+            Reset Filter
+          </p>
         </div>
         <div className="flex gap-7">
           <select
             name="items"
             id="item"
-            className={`w-56 py-2 px-3 rounded-lg border border-gray-300 bg-white shadow-sm outline-none ${
-              mode === "dark" ? "bg-[#282c34]" : ""
+            className={`w-56 py-2 px-3 rounded-lg border border-gray-300  shadow-sm outline-none cursor-pointer  ${
+              mode === "dark" ? "bg-[#282c34]" : "bg-white"
             }`}
           >
-            <option value="Jacket">Jacket</option>
-            <option value="Shirt">Shirt</option>
-            <option value="Jeans">Jeans</option>
+            <option className="text-[18px]" value="Jacket">
+              Jacket
+            </option>
+            <option className="text-[18px]" value="Shirt">
+              Shirt
+            </option>
+            <option className="text-[18px]" value="Jeans">
+              Jeans
+            </option>
           </select>
           <select
             name="Price"
             id="Price"
-            className={`w-56 py-2 px-3 rounded-lg border border-gray-300 bg-white shadow-sm outline-none ${
-              mode === "dark" ? "bg-[#282c34]" : ""
+            className={`w-56 py-2 px-3 rounded-lg border border-gray-300  shadow-sm outline-none  cursor-pointer ${
+              mode === "dark" ? "bg-[#282c34]" : "bg-white"
             }`}
           >
-            <option className="" value="Jacket">
+            <option className="text-[18px]" value="Jacket">
               100
             </option>
-            <option className="" value="Shirt">
+            <option className="text-[18px]" value="Shirt">
               400
             </option>
-            <option className="" value="Jeans">
+            <option className="text-[18px]" value="Jeans">
               700
             </option>
           </select>

@@ -11,7 +11,7 @@ const Navbar = () => {
   return (
     <nav
       style={{
-        backgroundColor: mode === "dark" ? "#282c34" : "",
+        backgroundColor: mode === "dark" ? "#282c34" : "white",
         color: mode === "dark" ? "white" : "",
       }}
       className="sticky top-0 z-10 w-screen"
