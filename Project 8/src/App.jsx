@@ -46,6 +46,10 @@ function App() {
       path: "/productinfo/:id",
       element: <ProductInfo />,
     },
+    {
+      path: "/cart",
+      element: <Cart />,
+    },
   ]);
   return (
     <>

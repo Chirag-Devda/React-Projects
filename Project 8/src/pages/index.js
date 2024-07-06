@@ -10,7 +10,6 @@ import ProductInfo from "./productInfo/ProductInfo.jsx";
 
 export {
   ALLProducts,
-  Cart,
   Dashboard,
   Home,
   NoPage,
@@ -18,4 +17,5 @@ export {
   ProductInfo,
   Login,
   SignUp,
+  Cart,
 };

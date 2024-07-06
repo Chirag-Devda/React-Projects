@@ -8,7 +8,7 @@ const Footer = () => {
   const { mode } = useData();
   return (
     <footer
-      className="text-gray-600 body-font bg-gray-300 mt-10"
+      className="text-gray-600 body-font bg-gray-300"
       style={{
         backgroundColor: mode === "dark" ? "rgb(46 49 55)" : "",
         color: mode === "dark" ? "white" : "",
