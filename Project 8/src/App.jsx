@@ -11,6 +11,8 @@ import {
   Login,
   SignUp,
 } from "./pages";
+import AddProduct from "./pages/admin/page/AddProduct";
+import UpdateProduct from "./pages/admin/page/UpdateProduct";
 
 function App() {
   const router = createBrowserRouter([
@@ -49,6 +51,14 @@ function App() {
     {
       path: "/cart",
       element: <Cart />,
+    },
+    {
+      path: "/addproduct",
+      element: <AddProduct />,
+    },
+    {
+      path: "/updateproduct",
+      element: <UpdateProduct />,
     },
   ]);
   return (

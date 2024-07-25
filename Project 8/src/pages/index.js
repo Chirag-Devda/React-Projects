@@ -7,6 +7,8 @@ import Order from "./order/Order.jsx";
 import Login from "./Auth/Login.jsx";
 import SignUp from "./Auth/SignUp.jsx";
 import ProductInfo from "./productInfo/ProductInfo.jsx";
+import AddProduct from "./admin/page/AddProduct.jsx";
+import UpdateProduct from "./admin/page/UpdateProduct.jsx";
 
 export {
   ALLProducts,

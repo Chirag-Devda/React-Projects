@@ -6,8 +6,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import useData from "../../hooks/useData";
 
 const Navbar = () => {
-  const { mode, toggleMode, openDrawer, open } = useData();
-  console.log(open);
+  const { mode, toggleMode, openDrawer } = useData();
   return (
     <nav
       style={{

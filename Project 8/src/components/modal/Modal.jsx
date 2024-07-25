@@ -14,7 +14,7 @@ export default function Modal() {
 
   return (
     <>
-      <div className="  text-center rounded-lg text-white font-bold">
+      <div className="text-center rounded-lg text-white font-bold">
         <button
           type="button"
           onClick={openModal}
@@ -81,7 +81,7 @@ export default function Modal() {
                                 type="text"
                                 name="address"
                                 id="address"
-                                className=" border outline-0 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-100"
+                                className="border outline-0 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-100"
                                 required
                               />
                             </div>
@@ -111,7 +111,7 @@ export default function Modal() {
                                 type="text"
                                 name="mobileNumber"
                                 id="mobileNumber"
-                                className=" border outline-0 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-100"
+                                className="border outline-0 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-100"
                                 required
                               />
                             </div>
