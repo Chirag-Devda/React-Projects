@@ -5,6 +5,7 @@ import HeroSection from "./hero/HeroSection.jsx";
 import Filter from "./filter/Filter.jsx";
 import ProductCard from "./productCard/ProductCard.jsx";
 import Modal from "./modal/Modal.jsx";
+import Loader from "./loader/Loader.jsx";
 
 export {
   Footer,
@@ -14,4 +15,5 @@ export {
   Filter,
   ProductCard,
   Modal,
+  Loader,
 };

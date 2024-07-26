@@ -18,9 +18,19 @@ export default function MyStateProvider({ children }) {
     }
   };
 
+  const [loading, setLoading] = useState(false);
+
   return (
     <MyContext.Provider
-      value={{ mode, toggleMode, open, openDrawer, closeDrawer }}
+      value={{
+        mode,
+        toggleMode,
+        open,
+        openDrawer,
+        closeDrawer,
+        loading,
+        setLoading,
+      }}
     >
       {children}
     </MyContext.Provider>
