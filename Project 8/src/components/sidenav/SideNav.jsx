@@ -17,7 +17,14 @@ import { IoMdPersonAdd } from "react-icons/io";
 
 const Sidenav = () => {
   const { closeDrawer, open, mode } = useData();
-  const bg = "#000";
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const logout = () => {
+    localStorage.clear("user");
+    window.location.href = "/login";
+  };
+
   return (
     <Drawer
       open={open}
@@ -46,36 +53,60 @@ const Sidenav = () => {
           </ListItemPrefix>
           All Products
         </ListItem>
-        <Link to="/order">
-          <ListItem onClick={closeDrawer}>
+        {user ? (
+          <Link to="/order">
+            <ListItem onClick={closeDrawer}>
+              <ListItemPrefix>
+                <IoBagHandleSharp />
+              </ListItemPrefix>
+              Order
+              <ListItemSuffix>
+                <Chip
+                  value="5"
+                  size="sm"
+                  color="green"
+                  className="rounded-full"
+                />
+              </ListItemSuffix>
+            </ListItem>
+          </Link>
+        ) : (
+          <></>
+        )}
+        {user?.user.email === "chiragdevda999@gmail.com" ? (
+          <Link to="/dashboard">
+            <ListItem onClick={closeDrawer}>
+              <ListItemPrefix>
+                <IoMdPersonAdd />
+              </ListItemPrefix>
+              Admin
+            </ListItem>
+          </Link>
+        ) : (
+          <></>
+        )}
+        {user ? (
+          <ListItem
+            onClick={() => {
+              closeDrawer();
+              logout();
+            }}
+          >
             <ListItemPrefix>
-              <IoBagHandleSharp />
+              <MdLogout />
             </ListItemPrefix>
-            Order
-            <ListItemSuffix>
-              <Chip
-                value="5"
-                size="sm"
-                color="green"
-                className="rounded-full"
-              />
-            </ListItemSuffix>
+            Logout
           </ListItem>
-        </Link>
-        <Link to="/dashboard">
-          <ListItem onClick={closeDrawer}>
-            <ListItemPrefix>
-              <IoMdPersonAdd />
-            </ListItemPrefix>
-            Admin
-          </ListItem>
-        </Link>
-        <ListItem onClick={closeDrawer}>
-          <ListItemPrefix>
-            <MdLogout />
-          </ListItemPrefix>
-          Logout
-        </ListItem>
+        ) : (
+          <Link to="/login">
+            <ListItem onClick={closeDrawer}>
+              <ListItemPrefix>
+                <MdLogout />
+              </ListItemPrefix>
+              login
+            </ListItem>
+          </Link>
+        )}
       </List>
     </Drawer>
   );

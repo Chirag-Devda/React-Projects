@@ -43,6 +43,9 @@ function Signup() {
       // toast successful
       toast.success("signup successfully");
 
+      // navigate to login page
+      window.location.href = "/login";
+
       // clear all the inputs
       setName("");
       setEmail("");

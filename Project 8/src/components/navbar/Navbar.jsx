@@ -7,6 +7,14 @@ import useData from "../../hooks/useData";
 
 const Navbar = () => {
   const { mode, toggleMode, openDrawer } = useData();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const logout = () => {
+    localStorage.clear("user");
+    window.location.href = "/login";
+  };
+
   return (
     <nav
       style={{
@@ -32,10 +40,25 @@ const Navbar = () => {
           <li className="hidden hover:cursor-pointer md:block">
             <Link to="/order">Order</Link>
           </li>
-          <li className="hidden hover:cursor-pointer md:block">
-            <Link to="/dashboard">Admin</Link>
-          </li>
-          <li className="hidden hover:cursor-pointer md:block">Logout</li>
+          {user?.user.email === "chiragdevda999@gmail.com" ? (
+            <li className="hidden hover:cursor-pointer md:block">
+              <Link to="/dashboard">Admin</Link>
+            </li>
+          ) : (
+            <></>
+          )}
+          {user ? (
+            <li
+              onClick={logout}
+              className="hidden hover:cursor-pointer md:block"
+            >
+              Logout
+            </li>
+          ) : (
+            <li className="hidden hover:cursor-pointer md:block">
+              <Link to="/login">Login</Link>
+            </li>
+          )}
           <li onClick={toggleMode} className="cursor-pointer">
             {mode === "light" ? (
               <MdOutlineLightMode size={33} md:size={25} />

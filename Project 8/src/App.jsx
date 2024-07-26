@@ -1,5 +1,9 @@
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -24,7 +28,11 @@ function App() {
     },
     {
       path: "/order",
-      element: <Order />,
+      element: (
+        <ProtectedRoute>
+          <Order />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/cart",
@@ -32,7 +40,11 @@ function App() {
     },
     {
       path: "/dashboard",
-      element: <Dashboard />,
+      element: (
+        <ProtectedRouteForAdmin>
+          <Dashboard />
+        </ProtectedRouteForAdmin>
+      ),
     },
     {
       path: "/*",
@@ -56,11 +68,19 @@ function App() {
     },
     {
       path: "/addproduct",
-      element: <AddProduct />,
+      element: (
+        <ProtectedRouteForAdmin>
+          <AddProduct />
+        </ProtectedRouteForAdmin>
+      ),
     },
     {
       path: "/updateproduct",
-      element: <UpdateProduct />,
+      element: (
+        <ProtectedRouteForAdmin>
+          <UpdateProduct />
+        </ProtectedRouteForAdmin>
+      ),
     },
   ]);
   return (
@@ -72,3 +92,22 @@ function App() {
 }
 
 export default App;
+
+export const ProtectedRoute = ({ children }) => {
+  const user = localStorage.getItem("user");
+  if (user) {
+    return children;
+  } else {
+    return <Navigate to={"/login"} />;
+  }
+};
+
+export const ProtectedRouteForAdmin = ({ children }) => {
+  const admin = JSON.parse(localStorage.getItem("user"));
+
+  if (admin.user.email === "chiragdevda999@gmail.com") {
+    return children;
+  } else {
+    return <Navigate to={"/login"} />;
+  }
+};
