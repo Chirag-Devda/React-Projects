@@ -10,6 +10,10 @@ const useData = () => {
     closeDrawer,
     loading,
     setLoading,
+    products,
+    setProducts,
+    addProduct,
+    product,
   } = useContext(MyContext);
 
   return {
@@ -20,6 +24,10 @@ const useData = () => {
     closeDrawer,
     loading,
     setLoading,
+    products,
+    setProducts,
+    addProduct,
+    product,
   };
 };
 

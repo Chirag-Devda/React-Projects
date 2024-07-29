@@ -1,8 +1,19 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { fireDB } from "../../firebase/FirebaseConfig";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  Timestamp,
+} from "firebase/firestore";
+import { toast } from "react-toastify";
 
 export const MyContext = createContext();
 
 export default function MyStateProvider({ children }) {
+  const [loading, setLoading] = useState(false);
   const [mode, setMode] = useState("light");
   const [open, setOpen] = useState(false);
   const openDrawer = () => setOpen(true);
@@ -18,7 +29,92 @@ export default function MyStateProvider({ children }) {
     }
   };
 
-  const [loading, setLoading] = useState(false);
+  // ********************** Add Product **********************
+
+  const [products, setProducts] = useState({
+    title: "",
+    price: "",
+    imageUrl: "",
+    category: "",
+    description: "",
+    time: Timestamp.now(),
+    date: new Date().toLocaleString("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+    }),
+  });
+
+  const addProduct = async () => {
+    if (
+      products.title == "" ||
+      products.price == "" ||
+      products.imageUrl == "" ||
+      products.category == "" ||
+      products.description == ""
+    ) {
+      return toast.error("Please fill all fields");
+    }
+    const productRef = collection(fireDB, "products");
+    setLoading(true);
+    try {
+      console.log(products);
+      await addDoc(productRef, products);
+      toast.success("Product Add successfully");
+      getProductData();
+      setLoading(false);
+      // locate to dashboard after add product successfull
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 800);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+
+    setProducts({
+      title: "",
+      price: "",
+      imageUrl: "",
+      category: "",
+      description: "",
+      time: Timestamp.now(),
+      date: new Date().toLocaleString("en-US", {
+        month: "short",
+        day: "2-digit",
+        year: "numeric",
+      }),
+    });
+  };
+
+  // ********************** Get Product **********************
+
+  const [product, setProduct] = useState([]);
+
+  const getProductData = async () => {
+    setLoading(true);
+    try {
+      const q = query(collection(fireDB, "products"), orderBy("time"));
+
+      const data = onSnapshot(q, (QuerySnapshot) => {
+        let productsArray = [];
+        QuerySnapshot.forEach((doc) => {
+          productsArray.push({ ...doc.data(), id: doc.id });
+        });
+        setProduct(productsArray);
+        setLoading(false);
+      });
+
+      return () => data;
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getProductData();
+  }, []);
 
   return (
     <MyContext.Provider
@@ -30,6 +126,10 @@ export default function MyStateProvider({ children }) {
         closeDrawer,
         loading,
         setLoading,
+        products,
+        setProducts,
+        addProduct,
+        product,
       }}
     >
       {children}
