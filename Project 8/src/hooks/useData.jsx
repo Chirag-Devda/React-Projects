@@ -14,6 +14,9 @@ const useData = () => {
     setProducts,
     addProduct,
     product,
+    edithandle,
+    updateProduct,
+    deleteProduct,
   } = useContext(MyContext);
 
   return {
@@ -28,6 +31,9 @@ const useData = () => {
     setProducts,
     addProduct,
     product,
+    edithandle,
+    updateProduct,
+    deleteProduct,
   };
 };
 

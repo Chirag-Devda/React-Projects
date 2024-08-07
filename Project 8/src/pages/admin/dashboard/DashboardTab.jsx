@@ -6,7 +6,7 @@ import useData from "../../../hooks/useData";
 import { Link } from "react-router-dom";
 
 function DashboardTab() {
-  const { mode, product } = useData();
+  const { mode, product, edithandle, deleteProduct } = useData();
   console.log(product);
 
   return (
@@ -162,7 +162,12 @@ function DashboardTab() {
                                     color: mode === "dark" ? "white" : "",
                                   }}
                                 >
-                                  <div>
+                                  <div
+                                    className="bg-red-50"
+                                    onClick={() => {
+                                      deleteProduct(item);
+                                    }}
+                                  >
                                     <svg
                                       xmlns="http://www.w3.org/2000/svg"
                                       fill="none"
