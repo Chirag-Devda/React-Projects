@@ -27,12 +27,12 @@ export const cartSlice = createSlice({
         time: formattedTime,
       });
     },
-    deleteFormCart: (state, action) => {
+    deleteFromCart: (state, action) => {
       return state.filter((item) => item.id != action.payload.id);
     },
   },
 });
 
-export const { addToCart, deleteFormCart } = cartSlice.actions;
+export const { addToCart, deleteFromCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
