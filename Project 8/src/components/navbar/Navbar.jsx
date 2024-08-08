@@ -4,9 +4,12 @@ import { FaBars } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 
 import useData from "../../hooks/useData";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const { mode, toggleMode, openDrawer } = useData();
+
+  const cartItems = useSelector((state) => state.cart);
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -70,7 +73,7 @@ const Navbar = () => {
             <div className="relative">
               <FiShoppingCart className="cursor-pointer" size={25} />
               <div className="absolute -right-2 -top-4 w-5 rounded-full  text-center text-[12px]">
-                0
+                {cartItems.length}
               </div>
             </div>
           </Link>

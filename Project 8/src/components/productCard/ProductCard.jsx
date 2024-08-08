@@ -1,124 +1,101 @@
+import { useDispatch, useSelector } from "react-redux";
 import useData from "../../hooks/useData.jsx";
+import { addToCart } from "../../redux/cartSlice.jsx";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const ProductCard = () => {
-  const { mode } = useData();
+  const dispatch = useDispatch();
+
+  const { mode, product } = useData();
+  const cartItems = useSelector((state) => state.cart);
+
+  // add products
+  const addCart = (product) => {
+    const productWithoutTime = { ...product };
+    delete productWithoutTime.time;
+
+    dispatch(
+      addToCart({
+        product: productWithoutTime,
+        timestampSeconds: product.time.seconds,
+        timestampNanoseconds: product.time.nanoseconds,
+      })
+    );
+    toast.success("add to cart");
+  };
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
+
   return (
     <div className="max-w-7xl mx-auto mt-10 px-5">
       <div>
         <h1
-          className={`text-3xl font-bold ${
+          className={`text-3xl font-bold mb-10 ${
             mode === "dark" ? "text-white" : ""
           }`}
         >
           Our Latest Collection
         </h1>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 mt-10">
-        <div
-          className={`rounded-lg border shadow-md p-4 text-center flex flex-col items-start ${
-            mode === "dark" ? "border border-white" : ""
-          }`}
-        >
-          <img
-            src="https://domf5oio6qrcr.cloudfront.net/medialibrary/7267/hb-6weekplan-0516207265025824.jpg"
-            alt=""
-            className="mx-auto mb-4 rounded-lg"
-          />
-          <h3
-            className={`text-xl font-semibold mb-2 ${
-              mode === "dark" ? "text-white" : ""
-            }`}
-          >
-            LootLo
-          </h3>
-          <h3
-            className={`text-xl font-semibold mb-2 ${
-              mode === "dark" ? "text-white" : ""
-            }`}
-          >
-            This is title
-          </h3>
-          <p
-            className={`mb-4 ${
-              mode === "dark" ? "text-white" : "text-gray-600 "
-            }`}
-          >
-            &#8377; 500
-          </p>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
-            Add to Cart
-          </button>
-        </div>
-        <div
-          className={`rounded-lg border shadow-md p-4 text-center flex flex-col items-start ${
-            mode === "dark" ? "border border-white" : ""
-          }`}
-        >
-          <img
-            src="https://domf5oio6qrcr.cloudfront.net/medialibrary/7267/hb-6weekplan-0516207265025824.jpg"
-            alt=""
-            className="mx-auto mb-4 rounded-lg"
-          />
-          <h3
-            className={`text-xl font-semibold mb-2 ${
-              mode === "dark" ? "text-white" : ""
-            }`}
-          >
-            LootLo
-          </h3>
-          <h3
-            className={`text-xl font-semibold mb-2 ${
-              mode === "dark" ? "text-white" : ""
-            }`}
-          >
-            This is title
-          </h3>
-          <p
-            className={`mb-4 ${
-              mode === "dark" ? "text-white" : "text-gray-600 "
-            }`}
-          >
-            &#8377; 500
-          </p>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
-            Add to Cart
-          </button>
-        </div>
-        <div
-          className={`rounded-lg border shadow-md p-4 text-center flex flex-col items-start ${
-            mode === "dark" ? "border border-white" : ""
-          }`}
-        >
-          <img
-            src="https://domf5oio6qrcr.cloudfront.net/medialibrary/7267/hb-6weekplan-0516207265025824.jpg"
-            alt=""
-            className="mx-auto mb-4 rounded-lg"
-          />
-          <h3
-            className={`text-xl font-semibold mb-2 ${
-              mode === "dark" ? "text-white" : ""
-            }`}
-          >
-            LootLo
-          </h3>
-          <h3
-            className={`text-xl font-semibold mb-2 ${
-              mode === "dark" ? "text-white" : ""
-            }`}
-          >
-            This is title
-          </h3>
-          <p
-            className={`mb-4 ${
-              mode === "dark" ? "text-white" : "text-gray-600 "
-            }`}
-          >
-            &#8377; 500
-          </p>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
-            Add to Cart
-          </button>
-        </div>
+      <div className="flex flex-wrap">
+        {product.map((item, index) => {
+          const { title, price, imageUrl, id } = item;
+          return (
+            <div key={index} className="p-4 md:w-1/4  drop-shadow-lg ">
+              <div
+                className="relative h-full border-2 hover:shadow-gray-100 hover:shadow-2xl transition-shadow duration-300 ease-in-out    border-gray-200 border-opacity-60 rounded-2xl overflow-hidden"
+                style={{
+                  backgroundColor: mode === "dark" ? "rgb(46 49 55)" : "",
+                  color: mode === "dark" ? "white" : "",
+                }}
+              >
+                <div
+                  onClick={() => (window.location.href = `/productinfo/${id}`)}
+                  className="flex justify-center cursor-pointer"
+                >
+                  <img
+                    className=" rounded-2xl w-full h-80 p-2 hover:scale-110 transition-scale-110  duration-300 ease-in-out"
+                    src={imageUrl}
+                    alt="blog"
+                  />
+                </div>
+                <div className="p-5 border-t-2">
+                  <h2
+                    className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"
+                    style={{ color: mode === "dark" ? "white" : "" }}
+                  >
+                    E-Bharat
+                  </h2>
+                  <h1
+                    className="title-font text-lg font-medium text-gray-900 mb-3"
+                    style={{ color: mode === "dark" ? "white" : "" }}
+                  >
+                    {title.slice(0, 20)}...
+                  </h1>
+                  {/* <p className="leading-relaxed mb-3">{item.description.}</p> */}
+                  <p
+                    className="leading-relaxed mb-3"
+                    style={{ color: mode === "dark" ? "white" : "" }}
+                  >
+                    ₹{price}
+                  </p>
+                  <div className="flex justify-center">
+                    <button
+                      type="button"
+                      onClick={() => addCart(item)}
+                      className="focus:outline-none text-white bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-full  py-2"
+                    >
+                      Add To Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

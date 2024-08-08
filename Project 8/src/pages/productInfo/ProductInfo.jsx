@@ -1,4 +1,3 @@
-import { IoIosStar } from "react-icons/io";
 import { Layout } from "../../components";
 import {
   FaComment,
