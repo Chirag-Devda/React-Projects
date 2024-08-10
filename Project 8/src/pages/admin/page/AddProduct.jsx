@@ -2,7 +2,6 @@ import useData from "../../../hooks/useData";
 
 function AddProduct() {
   const { products, setProducts, addProduct } = useData();
-  console.log(products);
 
   return (
     <div>
