@@ -5,6 +5,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDocs,
   onSnapshot,
   orderBy,
   query,
@@ -155,8 +156,31 @@ export default function MyStateProvider({ children }) {
     }
   };
 
+  // Get orders
+  const [order, setOrder] = useState([]);
+
+  const getOrderData = async () => {
+    setLoading(true);
+
+    try {
+      const result = await getDocs(collection(fireDB, "order"));
+      const orderArray = [];
+      result.forEach((doc) => {
+        orderArray.push(doc.data());
+        setLoading(false);
+      });
+      setOrder(orderArray);
+      console.log(orderArray);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getProductData();
+    getOrderData();
   }, []);
 
   return (
@@ -176,6 +200,7 @@ export default function MyStateProvider({ children }) {
         edithandle,
         updateProduct,
         deleteProduct,
+        order,
       }}
     >
       {children}
