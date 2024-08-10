@@ -14,10 +14,13 @@ function Order() {
           <div className=" h-full pt-10">
             {order
               .filter((obj) => obj.userid == userid)
-              .map((order) => {
+              .map((order, index) => {
                 // order.cartItems.map()
                 return (
-                  <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
+                  <div
+                    key={index}
+                    className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0"
+                  >
                     {order.cartItems.map((item, index) => {
                       return (
                         <div key={index} className="rounded-lg md:w-2/3">
