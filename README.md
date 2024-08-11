@@ -17,3 +17,4 @@
 <br>
 <p>Project 6 - Contact App - Contact App With MONGODB </p>
 <br>
+<p>Project 7 - Coinhub App - Crypto Dashboard and transaction with Authentication</p>
