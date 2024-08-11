@@ -18,3 +18,5 @@
 <p>Project 6 - Contact App - Contact App With MONGODB </p>
 <br>
 <p>Project 7 - Coinhub App - Crypto Dashboard and transaction with Authentication</p>
+<br>
+<p>Project 8 - LootLo App - LootLo E-commerce App with firebase</p>
