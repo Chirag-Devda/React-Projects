@@ -19,6 +19,12 @@ const useData = () => {
     deleteProduct,
     order,
     users,
+    searchKey,
+    setSearchKey,
+    filterType,
+    setFilterType,
+    filterPrice,
+    setFilterPrice,
   } = useContext(MyContext);
 
   return {
@@ -38,6 +44,12 @@ const useData = () => {
     deleteProduct,
     order,
     users,
+    searchKey,
+    setSearchKey,
+    filterType,
+    setFilterType,
+    filterPrice,
+    setFilterPrice,
   };
 };
 

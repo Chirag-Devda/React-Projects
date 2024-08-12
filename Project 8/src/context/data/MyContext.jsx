@@ -205,6 +205,11 @@ export default function MyStateProvider({ children }) {
     getUsers();
   }, []);
 
+  // filter logic
+  const [searchKey, setSearchKey] = useState("");
+  const [filterType, setFilterType] = useState("");
+  const [filterPrice, setFilterPrice] = useState("");
+
   return (
     <MyContext.Provider
       value={{
@@ -224,6 +229,12 @@ export default function MyStateProvider({ children }) {
         deleteProduct,
         order,
         users,
+        searchKey,
+        setSearchKey,
+        filterType,
+        setFilterType,
+        filterPrice,
+        setFilterPrice,
       }}
     >
       {children}

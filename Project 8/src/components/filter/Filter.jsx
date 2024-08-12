@@ -2,7 +2,26 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import useData from "../../hooks/useData";
 
 const Filter = () => {
-  const { mode } = useData();
+  const {
+    mode,
+    searchKey,
+    setSearchKey,
+    filterType,
+    setFilterType,
+    filterPrice,
+    setFilterPrice,
+    product,
+  } = useData();
+
+  const uniqueCategories = [...new Set(product.map((item) => item.category))];
+  const uniquePrice = [...new Set(product.map((item) => item.price))];
+
+  // Reset Filter
+  const resetFilter = () => {
+    setFilterPrice("");
+    setFilterType("");
+  };
+
   return (
     <div>
       <div
@@ -16,6 +35,8 @@ const Filter = () => {
               mode === "dark" ? "bg-[#282c34] outline-white" : ""
             }`}
             type="search"
+            value={searchKey}
+            onChange={(e) => setSearchKey(e.target.value)}
             placeholder="Search here"
           />
           <FaMagnifyingGlass className="absolute inset-2" size={20} />
@@ -23,6 +44,7 @@ const Filter = () => {
         <div className="flex justify-between font-bold text-[17px]">
           <p className="text-[18px] ">Filter</p>
           <p
+            onClick={resetFilter}
             className={`cursor-pointer rounded-lg p-2 text-[18px] ${
               mode === "dark"
                 ? "hover:scale-[1.2] hover:bg-blue-gray-300 hover:duration-500"
@@ -36,36 +58,36 @@ const Filter = () => {
           <select
             name="items"
             id="item"
+            value={filterType}
+            onChange={(e) => setFilterType(e.target.value)}
             className={`w-56 py-2 px-3 rounded-lg border border-gray-300  shadow-sm outline-none cursor-pointer  ${
               mode === "dark" ? "bg-[#282c34]" : "bg-white"
             }`}
           >
-            <option className="text-[18px]" value="Jacket">
-              Jacket
-            </option>
-            <option className="text-[18px]" value="Shirt">
-              Shirt
-            </option>
-            <option className="text-[18px]" value="Jeans">
-              Jeans
-            </option>
+            {uniqueCategories.map((category, index) => {
+              return (
+                <option key={index} className="text-[18px]" value={category}>
+                  {category}
+                </option>
+              );
+            })}
           </select>
           <select
-            name="Price"
-            id="Price"
+            name="price"
+            id="price"
+            value={filterPrice}
+            onChange={(e) => setFilterPrice(e.target.value)}
             className={`w-56 py-2 px-3 rounded-lg border border-gray-300  shadow-sm outline-none  cursor-pointer ${
               mode === "dark" ? "bg-[#282c34]" : "bg-white"
             }`}
           >
-            <option className="text-[18px]" value="Jacket">
-              100
-            </option>
-            <option className="text-[18px]" value="Shirt">
-              400
-            </option>
-            <option className="text-[18px]" value="Jeans">
-              700
-            </option>
+            {uniquePrice.map((price, index) => {
+              return (
+                <option key={index} className="text-[18px]" value={price}>
+                  {price}
+                </option>
+              );
+            })}
           </select>
         </div>
       </div>
