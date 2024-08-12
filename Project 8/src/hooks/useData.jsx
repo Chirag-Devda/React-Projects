@@ -18,6 +18,7 @@ const useData = () => {
     updateProduct,
     deleteProduct,
     order,
+    users,
   } = useContext(MyContext);
 
   return {
@@ -36,6 +37,7 @@ const useData = () => {
     updateProduct,
     deleteProduct,
     order,
+    users,
   };
 };
 

@@ -178,9 +178,31 @@ export default function MyStateProvider({ children }) {
     }
   };
 
+  // Get users
+  const [users, setUsers] = useState([]);
+
+  const getUsers = async () => {
+    setLoading(true);
+
+    try {
+      const result = await getDocs(collection(fireDB, "users"));
+      const usersArray = [];
+      result.forEach((doc) => {
+        usersArray.push(doc.data());
+        setLoading(false);
+      });
+      setUsers(usersArray);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getProductData();
     getOrderData();
+    getUsers();
   }, []);
 
   return (
@@ -201,6 +223,7 @@ export default function MyStateProvider({ children }) {
         updateProduct,
         deleteProduct,
         order,
+        users,
       }}
     >
       {children}
